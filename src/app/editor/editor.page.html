@@ -1,9 +1,21 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>editor</ion-title>
+    <ion-title>Edit</ion-title>
   </ion-toolbar>
 </ion-header>
 
+<ion-content class="buttonRow">
+	<ion-button class="" (click)="onNewTopicBtnClicked()">New Topic</ion-button>
+	<ion-button class="" [disabled]="!isEditTopicBtnAvailable()" (click)="onEditTopicBtnClicked()">Edit Topic</ion-button>
+	<ion-button class="" [disabled]="!isSelectedTopicAbleToMoveUp()" (click)="onMoveTopicUpClicked()">Move Topic Up</ion-button>
+	<ion-button class="" [disabled]="!isSelectedTopicAbleToMoveDown()" (click)="onMoveTopicDownClicked()">Move Topic Down</ion-button>
+	<span class="setOfButtonsDivider">|</span>
+	<ion-button class="" [disabled]="!isNewLineItemBtnAvailable()" (click)="onNewLineItemBtnClicked()">New Line Item</ion-button>
+	<ion-button class="" [disabled]="!isEditLineItemBtnAvailable()" (click)="onEditLineItemBtnClicked()">Edit Line Item</ion-button>
+	<ion-button class="" [disabled]="!isSelectedLineItemAbleToMoveUp()" (click)="onMoveLineItemUpClicked()">Move Line Item Up</ion-button>
+	<ion-button class="" [disabled]="!isSelectedLineItemAbleToMoveDown()" (click)="onMoveLineItemDownClicked()">Move Line Item Down</ion-button>
+</ion-content>
 <ion-content>
-
+	<lib-dtim-techprofile-component [ctrl]="getDtimTechprofileComponentController()"></lib-dtim-techprofile-component>
+	<br/><br/>
 </ion-content>

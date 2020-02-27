@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public appPages = [
     {
-      title: 'Display Profile',
+      title: 'Manage Tech Profile',
       url: '/display',
       icon: 'mail'
     },
