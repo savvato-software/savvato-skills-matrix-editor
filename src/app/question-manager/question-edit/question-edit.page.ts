@@ -131,13 +131,22 @@ export class QuestionEditPage implements OnInit {
 		return this.question && this.question["text"];
 	}
 
+	getQuestionDescription() {
+		return this.question && this.question["description"];
+	}
+
 	onQuestionChange(evt) {
 		this.question["text"] = evt.currentTarget.value;
 		this.setDirty();
 	}
 
+	onQuestionDescriptionChange(evt) {
+		this.question["description"] = evt.currentTarget.value;
+		this.setDirty();
+	}
+
 	isSaveBtnAvailable() {
-		return this.dirty && this.question && this.question['text'] && this.lilvassociations && this.lilvassociations.length > 0
+		return this.dirty && this.question && this.question['text'] && this.question['description'] && this.lilvassociations && this.lilvassociations.length > 0
 	}
 
 	onSaveBtnClicked() {
@@ -152,7 +161,7 @@ export class QuestionEditPage implements OnInit {
 
 	onCancelBtnClicked() {
 		let self = this;
-		if (this.question['text'] && this.question['text'].length > 0 && this.isDirty()) {
+		if (this.question['text'] && this.question['text'].length > 0 && this.question['description'].length > 0 && this.isDirty()) {
 			self._alertService.show({
 				header: 'Save Changes?',
 				message: "You made changes. Save 'em?",

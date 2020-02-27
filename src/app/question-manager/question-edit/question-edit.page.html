@@ -2,15 +2,19 @@
   <ion-toolbar>
     <ion-title>question-edit</ion-title>
   </ion-toolbar>
+	<ion-button class="" [disabled]="!isSaveBtnAvailable()" (click)="onSaveBtnClicked()">Save & Go Back</ion-button>
+	<ion-button class="" (click)="onCancelBtnClicked()">Cancel</ion-button>
 </ion-header>
 
 <ion-content>
-	<ion-button class="" [disabled]="!isSaveBtnAvailable()" (click)="onSaveBtnClicked()">Save & Go Back</ion-button>
-	<ion-button class="" (click)="onCancelBtnClicked()">Cancel</ion-button>
 	<br/>
 	<ion-item>
 		<ion-label position="floating">Question:</ion-label>
 		<ion-input data-test="question-edit-input" (ionInput)="onQuestionChange($event)" [value]="getQuestionText()" required></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label position="floating">Description:</ion-label>
+		<ion-input data-test="question-edit-input" (ionInput)="onQuestionDescriptionChange($event)" [value]="getQuestionDescription()" required></ion-input>
 	</ion-item>
 	<lib-dtim-techprofile-component [ctrl]="getDtimTechprofileComponentController()"></lib-dtim-techprofile-component>
 	<ion-button class="" [disabled]="!isSaveBtnAvailable()" (click)="onSaveBtnClicked()">Save & Go Back</ion-button>

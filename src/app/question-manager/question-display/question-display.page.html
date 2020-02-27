@@ -9,9 +9,11 @@
 	<ion-button class="" (click)="onBackBtnClicked()">Go Back</ion-button>	
 	
 	<br/><br/><br/>
+	<span class="boldText">Text:</span><br/>
 	{{ getQuestionText() }}
-	<br/><br/><br/>
-	--
+	<br/><br/>
+	<span class="boldText">Description:</span><br/>
+	{{ getQuestionDescription() }}
 	<lib-dtim-techprofile-component [ctrl]="getDtimTechprofileComponentController()"></lib-dtim-techprofile-component>
 
 	<ion-button class="" (click)="onBackBtnClicked()">Go Back</ion-button>	

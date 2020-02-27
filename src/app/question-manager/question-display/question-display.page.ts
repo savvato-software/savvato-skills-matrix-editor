@@ -86,6 +86,10 @@ export class QuestionDisplayPage implements OnInit {
 		return this.question && this.question["text"];
 	}
 
+	getQuestionDescription() {
+		return this.question && this.question["description"];
+	}
+
 	onEditQuestionBtnClicked() {
 
 		this._questionEditService.reset();
