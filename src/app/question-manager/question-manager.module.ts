@@ -8,12 +8,15 @@ import { QuestionManagerPageRoutingModule } from './question-manager-routing.mod
 
 import { QuestionManagerPage } from './question-manager.page';
 
+import { DtimTechprofileModule } from 'dtim-techprofile';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    QuestionManagerPageRoutingModule
+    QuestionManagerPageRoutingModule,
+    DtimTechprofileModule
   ],
   declarations: [QuestionManagerPage]
 })

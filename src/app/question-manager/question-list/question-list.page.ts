@@ -58,7 +58,7 @@ export class QuestionListPage implements OnInit {
 	}  
 
 	onDisplayQuestionBtnClicked(q) {
-		this._router.navigate(['/question-display/' + q.id]);
+		this._router.navigate(['/question-manager/question-display/' + q.id]);
 	}
 
 	onNewQuestionBtnClicked() {

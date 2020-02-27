@@ -8,12 +8,15 @@ import { QuestionEditPageRoutingModule } from './question-edit-routing.module';
 
 import { QuestionEditPage } from './question-edit.page';
 
+import { DtimTechprofileModule } from 'dtim-techprofile';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    QuestionEditPageRoutingModule
+    QuestionEditPageRoutingModule,
+    DtimTechprofileModule
   ],
   declarations: [QuestionEditPage]
 })

@@ -1,9 +1,15 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>question-manager</ion-title>
-  </ion-toolbar>
+	<ion-toolbar>
+		<ion-title>Question Manager</ion-title>
+	</ion-toolbar>
+	<ion-button class="" (click)="onNewQuestionBtnClicked()">New Question</ion-button>
 </ion-header>
 
 <ion-content>
-
+	<lib-dtim-techprofile-component [ctrl]="getDtimTechprofileComponentController()"></lib-dtim-techprofile-component>
+	<br/><br/>
 </ion-content>
+<!-- <ion-content class="footerButtonRow">
+	<ion-button class="" (click)="onBackBtnClicked()">Go Back</ion-button>
+</ion-content>
+ -->

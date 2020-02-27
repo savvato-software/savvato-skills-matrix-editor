@@ -35,7 +35,7 @@ export class DisplayPage implements OnInit {
 						return environment;
 					},
 					getColorMeaningString: () => {
-						return "This is the read only view of the Tech Profile"
+						return "This is the read only view of the Tech Profile."
 					}
 				});
 			})

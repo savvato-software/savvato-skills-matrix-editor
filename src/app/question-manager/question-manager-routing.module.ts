@@ -9,15 +9,19 @@ const routes: Routes = [
     component: QuestionManagerPage
   },
   {
-    path: 'question-display',
+    path: 'question-display/:questionId',
     loadChildren: () => import('./question-display/question-display.module').then( m => m.QuestionDisplayPageModule)
   },
   {
-    path: 'question-edit',
+    path: 'question-edit/new',
     loadChildren: () => import('./question-edit/question-edit.module').then( m => m.QuestionEditPageModule)
   },
   {
-    path: 'question-list',
+    path: 'question-edit/:questionId',
+    loadChildren: () => import('./question-edit/question-edit.module').then( m => m.QuestionEditPageModule)
+  },
+  {
+    path: 'question-list/:lineItemId/:level',
     loadChildren: () => import('./question-list/question-list.module').then( m => m.QuestionListPageModule)
   }
 ];
