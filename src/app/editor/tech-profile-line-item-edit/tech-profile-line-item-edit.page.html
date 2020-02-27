@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>tech-profile-line-item-edit</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-item>
+	  <ion-label position="floating">Name</ion-label>
+	  <ion-input data-test="tech-profile-line-item-edit-name" [(ngModel)]="lineItem.name" (ionChange)="setDirty()"></ion-input>
+	</ion-item>
+	<ion-item>
+	  <ion-label position="floating">Level 0 Description</ion-label>
+	  <ion-input data-test="tech-profile-line-item-edit-l0desc" [(ngModel)]="lineItem.l0Description" (ionChange)="setDirty()"></ion-input>
+	</ion-item>
+	<ion-item>
+	  <ion-label position="floating">Level 1 Description</ion-label>
+	  <ion-input data-test="tech-profile-line-item-edit-l1desc" [(ngModel)]="lineItem.l1Description" (ionChange)="setDirty()"></ion-input>
+	</ion-item>
+	<ion-item>
+	  <ion-label position="floating">Level 2 Description</ion-label>
+	  <ion-input data-test="tech-profile-line-item-edit-l2desc" [(ngModel)]="lineItem.l2Description" (ionChange)="setDirty()"></ion-input>
+	</ion-item>
+	<ion-item>
+	  <ion-label position="floating">Level 3 Description</ion-label>
+	  <ion-input data-test="tech-profile-line-item-edit-l3desc" [(ngModel)]="lineItem.l3Description" (ionChange)="setDirty()"></ion-input>
+	</ion-item>
+
+	<ion-button class="" (click)="onBackBtnClicked()">Go Back</ion-button>	
+</ion-content>
