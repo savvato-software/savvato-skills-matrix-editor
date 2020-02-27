@@ -32,9 +32,9 @@ export class FolderPage implements OnInit {
 		self._functionPromiseService.initFunc(self.funcKey, () => {
 			return new Promise((resolve, reject) => {
 				resolve({
-					// getEnv: () => {
-					// 	return environment;
-					// },
+					getEnv: () => {
+						return environment;
+					},
 					getColorMeaningString: () => {
 						return "This is the read only view of the Tech Profile"
 					}
