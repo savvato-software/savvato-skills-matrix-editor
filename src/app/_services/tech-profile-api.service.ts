@@ -152,7 +152,7 @@ export class TechProfileAPIService {
 
   updateTopic(topic) {
     let url = environment.apiUrl + "/api/techprofile/topic/" + topic["id"]
-    let rtn = new Promise((resolve, reject) => { reject("invalid data") })
+    let rtn = undefined;
 
     if (topic['name'] !== undefined) {
       rtn = new Promise(
@@ -167,7 +167,7 @@ export class TechProfileAPIService {
                   reject(err)
                 });
             });
-        }
+    }
 
     return rtn;
   }
