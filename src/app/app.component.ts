@@ -13,19 +13,14 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public appPages = [
     {
-      title: 'Home',
-      url: '/folder/Inbox',
-      icon: 'mail'
-    },
-    {
-      title: 'List Questions',
+      title: 'Display Profile',
       url: '/display',
       icon: 'mail'
     },
     {
-      title: 'Edit Tech Profile',
-      url: '/editor',
-      icon: 'paper-plane'
+      title: 'Manage Questions',
+      url: '/question-manager',
+      icon: 'mail'
     }
   ];
 

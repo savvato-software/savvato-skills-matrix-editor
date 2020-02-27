@@ -8,12 +8,15 @@ import { DisplayPageRoutingModule } from './display-routing.module';
 
 import { DisplayPage } from './display.page';
 
+import { DtimTechprofileModule } from 'dtim-techprofile';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DisplayPageRoutingModule
+    DisplayPageRoutingModule,
+    DtimTechprofileModule
   ],
   declarations: [DisplayPage]
 })
