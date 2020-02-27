@@ -31,7 +31,6 @@ export class EditorPage implements OnInit {
 	selectedTopicIDsProvider = () => { return [] };
 	selectedLineItemIDsProvider = () => { return [] };
 	techProfileProvider = () => { return undefined };
-	accessorToForceTechProfileRefresh = () => { return undefined };
 
 	ngOnInit() {
 		let self = this;
@@ -63,6 +62,12 @@ export class EditorPage implements OnInit {
 		});
 	}
 
+	ionViewDidLeave() {
+		this._techProfileModelService.saveSequenceInfo().then(() => {
+			// do  nothing
+		});
+	}
+
 	ngOnDestroy() {
 		this._functionPromiseService.resetFunc(this.funcKey);
 		this._functionPromiseService.reset(this.funcKey);
@@ -91,9 +96,12 @@ export class EditorPage implements OnInit {
 				text: 'OK', 
 				handler: (data) => {
 					if (data.topicName && data.topicName.length >= 2) {
-						self._techProfileModelService.addTopic(data.topicName).then(() => {
-							self.accessorToForceTechProfileRefresh();
+						self._techProfileModelService.saveSequenceInfo().then(() => {
+							self._techProfileModelService.addTopic(data.topicName).then(() => {
+								// do nothing
+							});
 						});
+
 					} else {
 						return false; // disable the button
 					}
@@ -126,8 +134,10 @@ export class EditorPage implements OnInit {
 				text: 'OK', 
 				handler: (data) => {
 					if (data.lineItemName && data.lineItemName.length >= 2) {
-						self._techProfileModelService.addLineItem(self.selectedTopicIDsProvider()[0], data.lineItemName).then(() => {
-							self.accessorToForceTechProfileRefresh();
+						self._techProfileModelService.saveSequenceInfo().then(() => {
+							self._techProfileModelService.addLineItem(self.selectedTopicIDsProvider()[0], data.lineItemName).then(() => {
+								// do nothing
+							});
 						});
 						
 					} else {
@@ -176,7 +186,7 @@ export class EditorPage implements OnInit {
 	}
 
 	onEditTopicBtnClicked() {
-		this._router.navigate(['/tech-profile-topic-edit/' + this.selectedTopicIDsProvider()[0]]);
+		this._router.navigate(['/editor/tech-profile-topic-edit/' + this.selectedTopicIDsProvider()[0]]);
 	}
 
 	isEditLineItemBtnAvailable() {
@@ -184,6 +194,11 @@ export class EditorPage implements OnInit {
 	}
 
 	onEditLineItemBtnClicked() {
-		this._router.navigate(['/tech-profile-line-item-edit/' + this.selectedLineItemIDsProvider()[0]]);
+		this._router.navigate(['/editor/tech-profile-line-item-edit/' + this.selectedLineItemIDsProvider()[0]]);
 	}
+
+	onFinishedEditingBtnClicked() {
+		this._router.navigate(['/display']);
+	}
+
 }
