@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';	
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { FolderPageRoutingModule } from './folder-routing.module';
+import { EditorPageRoutingModule } from './editor-routing.module';
 
-import { FolderPage } from './folder.page';
+import { EditorPage } from './editor.page';
 
 import { DtimTechprofileModule } from 'dtim-techprofile';
 
@@ -17,9 +17,9 @@ import { DtimTechprofileModule } from 'dtim-techprofile';
     HttpClientModule,
     FormsModule,
     IonicModule,
-    FolderPageRoutingModule,
+    EditorPageRoutingModule,
     DtimTechprofileModule
   ],
-  declarations: [FolderPage]
+  declarations: [EditorPage]
 })
-export class FolderPageModule {}
+export class EditorPageModule {}

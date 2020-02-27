@@ -1,0 +1,13 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>List of All Questions - {{ getLineItemName() }} - {{ getLevelDescriptionShort() }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-button class="" (click)="onNewQuestionBtnClicked()">New Question</ion-button>
+	<div *ngFor="let q of getAllQuestions()" class="question-list-item" (click)="onDisplayQuestionBtnClicked(q)">
+		<span>{{q.text}}</span>
+	</div>
+	<ion-button class="" (click)="onBackBtnClicked()">Go Back</ion-button>	
+</ion-content>

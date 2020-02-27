@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Location } from '@angular/common';
+
+import { FunctionPromiseService } from 'savvato-javascript-services'
+//import { AlertService } from '../_services/alert.service';
+import { TechProfileModelService } from '../_services/tech-profile-model.service';
+
+import { environment } from '../../_environments/environment'
 
 @Component({
   selector: 'app-folder',
@@ -9,10 +16,38 @@ import { ActivatedRoute } from '@angular/router';
 export class FolderPage implements OnInit {
   public folder: string;
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+	constructor(private _location: Location,
+				private _router: Router,
+				private _route: ActivatedRoute,
+				private _techProfileModelService: TechProfileModelService,
+//				private _alertService: AlertService,
+				private _functionPromiseService: FunctionPromiseService) {
 
-  ngOnInit() {
-    this.folder = this.activatedRoute.snapshot.paramMap.get('id');
-  }
+	}
 
+  	funcKey = "tp-controller-1xz3-alpha";
+
+  	ngOnInit() {
+	  	let self = this;
+		self._functionPromiseService.initFunc(self.funcKey, () => {
+			return new Promise((resolve, reject) => {
+				resolve({
+					// getEnv: () => {
+					// 	return environment;
+					// },
+					getColorMeaningString: () => {
+						return "This is the read only view of the Tech Profile"
+					}
+				});
+			})
+		});
+  	}
+
+	getDtimTechprofileComponentController() {
+		return this._functionPromiseService.waitAndGet(this.funcKey, this.funcKey, { });
+  	}
+
+  	onEditBtnClicked() {
+		this._router.navigate(['/editor/']);
+  	}
 }
