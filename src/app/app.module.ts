@@ -11,7 +11,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import { SavvatoJavascriptServicesModule } from 'savvato-javascript-services'
+import { SavvatoJavascriptServicesModule } from '@savvato-software/savvato-javascript-services'
 
 @NgModule({
   declarations: [AppComponent],

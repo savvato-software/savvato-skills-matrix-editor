@@ -5,7 +5,7 @@ import { Location } from '@angular/common';
 import { AlertService } from '../_services/alert.service';
 import { ModelService } from './_services/model.service';
 import { QuestionEditService } from '../_services/question-edit.service';
-import { FunctionPromiseService } from 'savvato-javascript-services'
+import { FunctionPromiseService } from '@savvato-software/savvato-javascript-services'
 
 import { environment } from '../../_environments/environment';
 
