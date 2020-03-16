@@ -8,7 +8,7 @@ import { DisplayPageRoutingModule } from './display-routing.module';
 
 import { DisplayPage } from './display.page';
 
-import { DtimTechprofileModule } from 'dtim-techprofile';
+import { DtimTechprofileModule } from '@savvato-software/dtim-techprofile-component';
 
 @NgModule({
   imports: [

@@ -8,7 +8,7 @@ import { EditorPageRoutingModule } from './editor-routing.module';
 
 import { EditorPage } from './editor.page';
 
-import { DtimTechprofileModule } from 'dtim-techprofile';
+import { DtimTechprofileModule } from '@savvato-software/dtim-techprofile-component';
 
 @NgModule({
   imports: [

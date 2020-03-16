@@ -8,7 +8,7 @@ import { QuestionDisplayPageRoutingModule } from './question-display-routing.mod
 
 import { QuestionDisplayPage } from './question-display.page';
 
-import { DtimTechprofileModule } from 'dtim-techprofile';
+import { DtimTechprofileModule } from '@savvato-software/dtim-techprofile-component';
 
 @NgModule({
   imports: [
