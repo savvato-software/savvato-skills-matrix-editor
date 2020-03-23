@@ -11,6 +11,8 @@ export class TechProfileModelService {
 	techProfile = undefined;
 	questionCountsPerCell = undefined;
 
+	resetCalculatedStuffCallback = undefined;
+
 	constructor(protected _techProfileAPI: TechProfileAPIService,
 				protected _sequenceService: SequenceService	) { }
 
@@ -27,6 +29,9 @@ export class TechProfileModelService {
 
 			self._techProfileAPI.get(1).then((tp) => {
 				self.techProfile = tp;
+
+				if (self.resetCalculatedStuffCallback) 
+					self.resetCalculatedStuffCallback();
 			})
 		}
 	}
@@ -52,6 +57,10 @@ export class TechProfileModelService {
 		})
 	}
 
+	setResetCalculatedStuffCallback(func) {
+		this.resetCalculatedStuffCallback = func;
+	}
+
 	getModel() {
 		return this.techProfile;
 	}
@@ -69,6 +78,10 @@ export class TechProfileModelService {
 		return this.techProfile && this.techProfile["topics"].sort((a, b) => { return a["sequence"] - b["sequence"]; });
 	}
 
+	getTopicById(id) {
+		return this.techProfile && this.techProfile["topics"].filter((t) => { return t['id'] === id; });
+	}
+
 	getLineItemsForATopic(topicId) {
 		return this.getTechProfileLineItemsByTopic(topicId);
 	}
@@ -77,21 +90,9 @@ export class TechProfileModelService {
 		return this.techProfile && this.techProfile != null
 	}
 
-	setTechProfile(techProfile) {
-		this.techProfile = techProfile;
-	}
-
-	getTechProfile() { // dupe
-		return this.techProfile;
-	}
-
-	getTechProfileTopics() { // dupe
-		return this.techProfile && this.techProfile["topics"].sort((a, b) => { return a["sequence"] - b["sequence"]; });
-	}
-
-	getTechProfileTopicById(topicId) {
-		return this.techProfile && this.techProfile["topics"].find((t) => { return t['id'] === topicId });
-	}
+	// setTechProfile(techProfile) {
+	// 	this.techProfile = techProfile;
+	// }
 
 	isTopicAbleToMoveUp(topicId) {
 		let rtn = false;
@@ -256,4 +257,27 @@ export class TechProfileModelService {
 			})
 		})
 	}
+
+	addExistingLineItem(parentTopicId, lineItemId) {
+		let self = this;
+		return new Promise((resolve, reject) => {
+			self._techProfileAPI.addExistingLineItem(parentTopicId, lineItemId).then(() => {
+				self._init(true);
+
+				resolve();
+			})
+		})
+	}
+	
+	deleteExistingLineItem(parentTopicId, lineItemId) {
+		let self = this;
+		return new Promise((resolve, reject) => {
+			self._techProfileAPI.deleteExistingLineItem(parentTopicId, lineItemId).then(() => {
+				self._init(true);
+
+				resolve();
+			})
+		})
+	}
+	
 }

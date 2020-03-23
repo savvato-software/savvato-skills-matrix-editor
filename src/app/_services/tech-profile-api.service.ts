@@ -172,6 +172,39 @@ export class TechProfileAPIService {
     return rtn;
   }
 
+  addExistingLineItem(parentTopicId, existingLineItemId) { 
+    let url = environment.apiUrl + "/api/techprofile/topic/" + parentTopicId + "/addExistingLineItemAsChild"
+    let rtn = new Promise((resolve, reject) => {
+      let data = "existingLineItemId="+ existingLineItemId;
+
+      this._apiService.post(url, data).subscribe((data) => {
+        console.log("POST addExistingLineItem call returned")
+        console.log(data);
+        resolve(data);
+
+        // WILO... implement this on the backend...
+      })
+    })
+
+    return rtn;
+  }
+
+  deleteExistingLineItem(parentTopicId, lineItemId) { 
+    let url = environment.apiUrl + "/api/techprofile/topic/" + parentTopicId + "/lineItem/" + lineItemId
+    let rtn = new Promise((resolve, reject) => {
+
+      this._apiService.delete(url).subscribe((data) => {
+        console.log("DELETE deleteExistingLineItem call returned")
+        console.log(data);
+        resolve(data);
+
+        // WILO... implement this on the backend...
+      })
+    })
+
+    return rtn;
+  }
+
   saveSequenceInfo(arr) {
     let url = environment.apiUrl + "/api/techprofile/sequences"
     let rtn = new Promise(

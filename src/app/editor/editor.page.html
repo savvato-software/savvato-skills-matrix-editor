@@ -11,6 +11,9 @@
 	<ion-button class="" [disabled]="!isEditLineItemBtnAvailable()" (click)="onEditLineItemBtnClicked()">Edit Line Item</ion-button>
 	<ion-button class="" [disabled]="!isSelectedLineItemAbleToMoveUp()" (click)="onMoveLineItemUpClicked()">Move Line Item Up</ion-button>
 	<ion-button class="" [disabled]="!isSelectedLineItemAbleToMoveDown()" (click)="onMoveLineItemDownClicked()">Move Line Item Down</ion-button>
+	<span class="setOfButtonsDivider">|</span>
+	<ion-button class="" [disabled]="!isCopyLineItemBtnAvailable()" (click)="onCopyLineItemBtnClicked()">Copy Line Item</ion-button>
+	<ion-button class="" [disabled]="!isDeleteLineItemBtnAvailable()" (click)="onDeleteLineItemBtnClicked()">Delete Line Item</ion-button>
 </ion-header>
 
 <ion-content class="buttonRow">

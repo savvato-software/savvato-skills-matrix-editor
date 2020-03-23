@@ -201,4 +201,41 @@ export class EditorPage implements OnInit {
 		this._router.navigate(['/display']);
 	}
 
+	isCopyLineItemBtnAvailable() {
+		let rtn = false;
+		let selectedTopicIDs = this.selectedTopicIDsProvider();
+		if (selectedTopicIDs && selectedTopicIDs.length === 1) {
+			let lineItems = this._techProfileModelService.getLineItemsForATopic(selectedTopicIDs[0]);
+
+			let selectedLineItemIDs = this.selectedLineItemIDsProvider();
+
+			if (selectedLineItemIDs.length === 1 && lineItems)
+				rtn = !lineItems.map(li => li['id']).includes(selectedLineItemIDs[0]);
+		}
+
+		return rtn;
+	}
+
+	onCopyLineItemBtnClicked() {
+		this._techProfileModelService.addExistingLineItem(this.selectedTopicIDsProvider()[0], this.selectedLineItemIDsProvider()[0]);
+	}
+
+	isDeleteLineItemBtnAvailable() {
+		let rtn = false;
+		let selectedTopicIDs = this.selectedTopicIDsProvider();
+		if (selectedTopicIDs && selectedTopicIDs.length === 1) {
+			let lineItems = this._techProfileModelService.getLineItemsForATopic(selectedTopicIDs[0]);
+
+			let selectedLineItemIDs = this.selectedLineItemIDsProvider();
+
+			if (selectedLineItemIDs.length === 1 && lineItems)
+				rtn = lineItems.map(li => li['id']).includes(selectedLineItemIDs[0]);
+		}
+
+		return rtn;
+	}
+
+	onDeleteLineItemBtnClicked() {
+		this._techProfileModelService.deleteExistingLineItem(this.selectedTopicIDsProvider()[0], this.selectedLineItemIDsProvider()[0]);
+	}
 }
