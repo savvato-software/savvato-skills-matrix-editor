@@ -1,5 +1,7 @@
 {
   "name": "savvato-techprofile-editor",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
