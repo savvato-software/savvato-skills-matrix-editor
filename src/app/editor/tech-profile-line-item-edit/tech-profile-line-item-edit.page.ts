@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { TechProfileModelService } from '../../_services/tech-profile-model.service';
+import { TechProfileModelService } from '@savvato-software/savvato-javascript-services'
+
+import { environment } from '../../../_environments/environment'
 
 @Component({
   selector: 'app-tech-profile-line-item-edit',
@@ -24,6 +26,7 @@ export class TechProfileLineItemEditPage implements OnInit {
 	ngOnInit() {
 		let self = this;
 
+		self._techProfileModelService.setEnvironment(environment);
 		self._techProfileModelService._init();
 
 		self._route.params.subscribe((params) => {

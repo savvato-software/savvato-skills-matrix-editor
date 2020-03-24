@@ -3,9 +3,11 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { QuestionService } from '../../_services/question.service';
-import { TechProfileModelService } from '../../_services/tech-profile-model.service';
+import { TechProfileModelService } from '@savvato-software/savvato-javascript-services';
 
 import { QuestionEditService } from '../../_services/question-edit.service';
+
+import { environment } from '../../../_environments/environment';
 
 @Component({
   selector: 'app-question-list',
@@ -30,6 +32,7 @@ export class QuestionListPage implements OnInit {
 
   ngOnInit() {
 	let self = this;
+	self._techProfileModelService.setEnvironment(environment);
 	self._route.params.subscribe((params) => {
 		self.lineItemId = params['lineItemId'] * 1;
 		self.levelNumber = params['level'] * 1;

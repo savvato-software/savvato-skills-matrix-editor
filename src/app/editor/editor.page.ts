@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 
 import { FunctionPromiseService } from '@savvato-software/savvato-javascript-services'
 import { AlertService } from '../_services/alert.service';
-import { TechProfileModelService } from '../_services/tech-profile-model.service';
+import { TechProfileModelService } from '@savvato-software/savvato-javascript-services'
 
 import { UP, DOWN } from '../../_constants/constants';
 
@@ -34,6 +34,9 @@ export class EditorPage implements OnInit {
 
 	ngOnInit() {
 		let self = this;
+
+		self._techProfileModelService.setEnvironment(environment);
+
 		self._functionPromiseService.initFunc(self.funcKey, () => {
 			return new Promise((resolve, reject) => {
 				resolve({
@@ -59,12 +62,6 @@ export class EditorPage implements OnInit {
 					},
 				});
 			})
-		});
-	}
-
-	ionViewDidLeave() {
-		this._techProfileModelService.saveSequenceInfo().then(() => {
-			// do  nothing
 		});
 	}
 
@@ -198,7 +195,9 @@ export class EditorPage implements OnInit {
 	}
 
 	onFinishedEditingBtnClicked() {
-		this._router.navigate(['/display']);
+		this._techProfileModelService.saveSequenceInfo().then(() => {
+			this._router.navigate(['/display']);
+		});
 	}
 
 	isCopyLineItemBtnAvailable() {
