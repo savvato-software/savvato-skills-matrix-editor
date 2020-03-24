@@ -3,8 +3,6 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { FunctionPromiseService } from '@savvato-software/savvato-javascript-services'
-//import { AlertService } from '../_services/alert.service';
-import { TechProfileModelService } from '../_services/tech-profile-model.service';
 
 import { environment } from '../../_environments/environment'
 
@@ -18,16 +16,17 @@ export class DisplayPage implements OnInit {
 	constructor(private _location: Location,
 				private _router: Router,
 				private _route: ActivatedRoute,
-				private _techProfileModelService: TechProfileModelService,
-//				private _alertService: AlertService,
 				private _functionPromiseService: FunctionPromiseService) {
 
 	}
 
   	funcKey = "tp-controller-1xz3-alpha";
 
+  	refreshChildComponentFunc = undefined;
+
   	ngOnInit() {
 	  	let self = this;
+
 		self._functionPromiseService.initFunc(self.funcKey, () => {
 			return new Promise((resolve, reject) => {
 				resolve({
@@ -36,10 +35,20 @@ export class DisplayPage implements OnInit {
 					},
 					getColorMeaningString: () => {
 						return "This is the read only view of the Tech Profile."
+					},
+					setRefreshFunc: (cb) => { 
+						// this function is called by the component. The parameter is a function that it creates.
+						//  we call this parameter function to let the component know that it should refresh its data.
+						self.refreshChildComponentFunc = cb;
 					}
 				});
 			})
 		});
+  	}
+
+  	ionViewWillEnter() {
+  		if (this.refreshChildComponentFunc)
+  			this.refreshChildComponentFunc();
   	}
 
 	getDtimTechprofileComponentController() {
