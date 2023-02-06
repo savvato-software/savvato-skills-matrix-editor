@@ -83,14 +83,14 @@ export class EditorPage implements OnInit {
 				name: 'topicName',
 				placeholder: '....',
 				type: 'text'
-			}],			
+			}],
 			buttons: [{
-				text: 'Cancel', 
+				text: 'Cancel',
 				handler: (data) => {
 					// do nothing.. ?
 				}
 			},{
-				text: 'OK', 
+				text: 'OK',
 				handler: (data) => {
 					if (data.topicName && data.topicName.length >= 2) {
 						self._techProfileModelService.saveSequenceInfo().then(() => {
@@ -98,7 +98,7 @@ export class EditorPage implements OnInit {
 								// do nothing
 							});
 						});
-
+            return true;
 					} else {
 						return false; // disable the button
 					}
@@ -121,14 +121,14 @@ export class EditorPage implements OnInit {
 				name: 'lineItemName',
 				placeholder: '....',
 				type: 'text'
-			}],			
+			}],
 			buttons: [{
-				text: 'Cancel', 
+				text: 'Cancel',
 				handler: (data) => {
 					// do nothing.. ?
 				}
 			},{
-				text: 'OK', 
+				text: 'OK',
 				handler: (data) => {
 					if (data.lineItemName && data.lineItemName.length >= 2) {
 						self._techProfileModelService.saveSequenceInfo().then(() => {
@@ -136,7 +136,7 @@ export class EditorPage implements OnInit {
 								// do nothing
 							});
 						});
-						
+						return true;
 					} else {
 						return false; // disable the button
 					}
@@ -167,7 +167,7 @@ export class EditorPage implements OnInit {
 	}
 
 	onMoveLineItemUpClicked() {
-		this._techProfileModelService.moveSequenceForTechProfileLineItem(this.selectedTopicIDsProvider()[0], this.selectedLineItemIDsProvider()[0], UP)	
+		this._techProfileModelService.moveSequenceForTechProfileLineItem(this.selectedTopicIDsProvider()[0], this.selectedLineItemIDsProvider()[0], UP)
 	}
 
 	isSelectedLineItemAbleToMoveDown() {

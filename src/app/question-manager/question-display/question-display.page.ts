@@ -15,9 +15,9 @@ import { environment } from '../../../_environments/environment'
 })
 export class QuestionDisplayPage implements OnInit {
 
-	questionId = undefined;
-	question = undefined;
-	lilvassociations = undefined;
+	questionId:number = -1;
+	question:any = undefined;
+	lilvassociations:any = undefined;
 
 	funcKey = "qdpg-controller";
 
@@ -28,7 +28,7 @@ export class QuestionDisplayPage implements OnInit {
 			    private _router: Router,
 			    private _route: ActivatedRoute,
 			    private _questionService: QuestionService,
-				private _questionEditService: QuestionEditService,
+				  private _questionEditService: QuestionEditService,
 			    private _functionPromiseService: FunctionPromiseService
 			    ) {
 
@@ -44,7 +44,7 @@ export class QuestionDisplayPage implements OnInit {
 					self.question = q;
 				});
 
-				self._questionService.getLineItemLevelAssociations(self.questionId).then((data: number[]) => {
+				self._questionService.getLineItemLevelAssociations(self.questionId).then((data) => {
 					self.lilvassociations = data;
 
 					console.log("---", self.lilvassociations);
@@ -60,8 +60,8 @@ export class QuestionDisplayPage implements OnInit {
 							getColorMeaningString: () => {
 								return "lightblue means this question is associated with that cell. Someone of that skill level should be able to answer this question. To change the skills that this question applies to, click Edit to edit the question."
 							},
-							getBackgroundColor: (lineItem, idx) => {
-								let rtn = undefined;
+							getBackgroundColor: (lineItem, idx):string => {
+								let rtn: string = '';
 								if (self.getAssociatedLevel(lineItem['id']) === idx) {
 									rtn = "lightblue";
 								} else {
@@ -70,7 +70,7 @@ export class QuestionDisplayPage implements OnInit {
 
 								return rtn;
 							},
-						})						
+						})
 					})
 				})
 			}
@@ -90,12 +90,13 @@ export class QuestionDisplayPage implements OnInit {
 	}
 
 	onEditQuestionBtnClicked() {
+    const self = this;
 
 		this._questionEditService.reset();
 		this._questionEditService.setSetupFunc(
 			// this returns an array of lineItemLevels, one for each that this question has selected
-			() => { 
-				return this.lilvassociations.map(e => { return {lineItemId: e[this.LINE_ITEM_ID_IDX], levelNumber: e[this.LEVEL_IDX]} });
+			() => {
+				return self.lilvassociations.map(e => { return {lineItemId: e[this.LINE_ITEM_ID_IDX], levelNumber: e[this.LEVEL_IDX]} });
 			}
 		);
 

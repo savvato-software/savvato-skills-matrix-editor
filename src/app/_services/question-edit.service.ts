@@ -10,30 +10,30 @@ export class QuestionEditService {
 
 	// My goal is to pass in the lineItemId and LevelNumber to the Question Edit page.
 
-	// Other than a service, there is no way to do that. I would LOVE if I could just 
+	// Other than a service, there is no way to do that. I would LOVE if I could just
 	//
 	//   this._router.navigate([{ url: '/question-edit', func: () => { return lineItemIdAndLevel; }}])
 	//
 	// but alas, it seems I need to write an entire fucking service to do that.
-  
-	func = undefined;
 
-	constructor() { 
+	func: () => any = () => {};
+
+	constructor() {
 
 	}
 
-	setSetupFunc(func) {
+	setSetupFunc(func : () => any) {
 		this.func = func;
 	}
 
-	getSetupFunc() {
-		if (this.func)
-			return this.func
-		else
-			return () => { return undefined; };
-	}
+  getSetupFunc(): () => any {
+    if (this.func)
+      return this.func
+    else
+      return () => { return undefined; };
+  }
 
 	reset() {
-		this.func = undefined;
+		this.func = () => {};
 	}
 }

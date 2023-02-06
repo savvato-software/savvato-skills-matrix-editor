@@ -51,13 +51,11 @@ export class QuestionManagerPage implements OnInit {
 						let count = this._modelService.getQuestionCountForCell(lineItem['id'], idx);
 						let max = this._modelService.getHighestQuestionCountForAnyCell();
 
-						let shadesOfGray = ["#E0E0E0","#D0D0D0","#C0C0C0","#B0B0B0","#A0A0A0","#909090","#808080","#707070","#606060", "#505050"]
+						let shadesOfGray: string[] = ["#E0E0E0","#D0D0D0","#C0C0C0","#B0B0B0","#A0A0A0","#909090","#808080","#707070","#606060", "#505050"]
 
 						if (count && max) {
-							let p = this._modelService.getPercentileForTheNumberOfQuestionsForThisCell(lineItem['id'], idx);
-							let rtn = undefined;
-
-							rtn = shadesOfGray[Math.max(p - 1, 0)];
+							let p: number = this._modelService.getPercentileForTheNumberOfQuestionsForThisCell(lineItem['id'], idx);
+							let rtn: string = shadesOfGray[Math.max(p - 1, 0)];
 
 							return rtn;
 						}
@@ -65,7 +63,7 @@ export class QuestionManagerPage implements OnInit {
 						return "white";
 					},
 					onLxDescriptionClick: (lineItem, idx) => {
-						let count = this._modelService.getQuestionCountForCell(lineItem['id'], idx);
+						const count: number = this._modelService.getQuestionCountForCell(lineItem['id'], idx);
 						console.log(lineItem['id'], idx, " clicked on. count --> ", count)
 						if (count > 0) {
 							this._router.navigate(['/question-manager/question-list/' + lineItem['id'] + '/' + idx]);

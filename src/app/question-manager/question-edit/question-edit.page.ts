@@ -12,7 +12,7 @@ import { environment } from '../../../_environments/environment'
 
 //
 // This page presents a field to edit the question itself, and also a view of the tech profile, used to select lineItemLevel associations
-// 
+//
 
 @Component({
   selector: 'app-question-edit',
@@ -23,8 +23,8 @@ export class QuestionEditPage implements OnInit {
 
 	dirty = false;
 	questionId = undefined;
-	question = undefined;
-	lilvassociations = undefined;
+	question: any = null;
+	lilvassociations:any = undefined;
 	isNew = true;
 
 	funcKey = "qepg-getParams1";
@@ -55,7 +55,7 @@ export class QuestionEditPage implements OnInit {
 			let tmp = self._questionEditService.getSetupFunc()();
 			if (tmp) {
 				for (var x = 0; x < tmp.length; x++) {
-					self.lilvassociations.push([tmp[x]['lineItemId'], tmp[x]['levelNumber']]);	
+					self.lilvassociations.push([tmp[x]['lineItemId'], tmp[x]['levelNumber']]);
 				}
 			}
 
@@ -65,7 +65,7 @@ export class QuestionEditPage implements OnInit {
 					self.isNew = false;
 				});
 
-				self._questionService.getLineItemLevelAssociations(self.questionId).then((data: number[]) => {
+				self._questionService.getLineItemLevelAssociations(self.questionId).then((data) => {
 					self.lilvassociations = data;
 				})
 			}
@@ -89,16 +89,16 @@ export class QuestionEditPage implements OnInit {
 						},
 						onLxDescriptionClick: (lineItem, idx) => {
 							let association = self.lilvassociations.find(
-								(element) => { 
-									return element[this.LINE_ITEM_ID_IDX] === lineItem['id']; 
+								(element) => {
+									return element[this.LINE_ITEM_ID_IDX] === lineItem['id'];
 								});
 
 							if (association) {
 								if (idx === association[this.LEVEL_IDX]) {
 									// remove the association
 									self.lilvassociations = self.lilvassociations.filter(
-										(element) => { 
-											return element[this.LINE_ITEM_ID_IDX] !== lineItem['id']; 
+										(element) => {
+											return element[this.LINE_ITEM_ID_IDX] !== lineItem['id'];
 										});
 
 								} else {

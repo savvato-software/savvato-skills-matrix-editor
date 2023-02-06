@@ -16,10 +16,10 @@ import { environment } from '../../../_environments/environment';
 })
 export class QuestionListPage implements OnInit {
 
-	lineItem = undefined
-	lineItemId = undefined
-	levelNumber = undefined
-  	questions = undefined;
+	lineItem: any = undefined
+	lineItemId: any = undefined
+	levelNumber: any = undefined
+  questions: any = [];
 
     constructor(private _location: Location,
 			    private _router: Router,
@@ -58,7 +58,7 @@ export class QuestionListPage implements OnInit {
 
 	getAllQuestions() {
 		return this.questions;
-	}  
+	}
 
 	onDisplayQuestionBtnClicked(q) {
 		this._router.navigate(['/question-manager/question-display/' + q.id]);
@@ -66,7 +66,7 @@ export class QuestionListPage implements OnInit {
 
 	onNewQuestionBtnClicked() {
 		let self = this;
-			
+
 		self._questionEditService.reset();
 
 		if (self.lineItemId && !isNaN(self.levelNumber)) {

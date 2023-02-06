@@ -20,12 +20,12 @@ export class DisplayPage implements OnInit {
 
 	}
 
-  	funcKey = "tp-controller-1xz3-alpha";
+  funcKey = "tp-controller-1xz3-alpha";
 
-  	refreshChildComponentFunc = undefined;
+  refreshChildComponentFunc:() => any = () => {};
 
-  	ngOnInit() {
-	  	let self = this;
+  ngOnInit() {
+    let self = this;
 
 		self._functionPromiseService.initFunc(self.funcKey, () => {
 			return new Promise((resolve, reject) => {
@@ -36,7 +36,7 @@ export class DisplayPage implements OnInit {
 					getColorMeaningString: () => {
 						return "This is the read only view of the Tech Profile."
 					},
-					setRefreshFunc: (cb) => { 
+					setRefreshFunc: (cb) => {
 						// this function is called by the component. The parameter is a function that it creates.
 						//  we call this parameter function to let the component know that it should refresh its data.
 						self.refreshChildComponentFunc = cb;
@@ -44,18 +44,18 @@ export class DisplayPage implements OnInit {
 				});
 			})
 		});
-  	}
+  }
 
-  	ionViewWillEnter() {
-  		if (this.refreshChildComponentFunc)
-  			this.refreshChildComponentFunc();
-  	}
+  ionViewWillEnter() {
+    if (this.refreshChildComponentFunc)
+      this.refreshChildComponentFunc();
+  }
 
 	getDtimTechprofileComponentController() {
 		return this._functionPromiseService.waitAndGet(this.funcKey, this.funcKey, { });
-  	}
+  }
 
-  	onEditBtnClicked() {
+  onEditBtnClicked() {
 		this._router.navigate(['/editor/']);
-  	}
+  }
 }

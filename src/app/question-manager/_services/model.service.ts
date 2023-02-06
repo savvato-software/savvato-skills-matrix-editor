@@ -38,7 +38,7 @@ export class ModelService {
 			return new Promise((resolve, reject) => {
 				let qcpc = data['questionCountsPerCell'];
 
-				if (!qcpc) 
+				if (!qcpc)
 					throw new Error("questionCountsPerCell needed.");
 				else {
 					let rtn = 0;
@@ -75,7 +75,7 @@ export class ModelService {
 
 				while (qcpc && i < qcpc.length) {
 					let curr = qcpc[i];
-					if (max === undefined || curr[2] > max) max = curr[2]; 
+					if (max === undefined || curr[2] > max) max = curr[2];
 					i++;
 				}
 
@@ -84,9 +84,9 @@ export class ModelService {
 		})
 	}
 
-	getQuestionCountForCell(id, idx) {
+	getQuestionCountForCell(id, idx): number {
 		let self = this;
-		let rtn = undefined;
+		let rtn:number = -1;
 
 		let qcpc = this._functionPromiseService.get(self.GET_ALL_QUESTION_COUNTS_PER_CELL, self.GET_ALL_QUESTION_COUNTS_PER_CELL, { });
 
@@ -94,7 +94,7 @@ export class ModelService {
 			let data = {'lineItemId': id, 'lineItemLevelIndex': idx, 'questionCountsPerCell': qcpc};
 			rtn = this._functionPromiseService.get(self.GET_QUESTION_COUNT_OF_A_GIVEN_CELL+""+id+"-"+idx+"/"+qcpc.length, self.GET_QUESTION_COUNT_OF_A_GIVEN_CELL, data)
 		}
-		
+
 		return rtn;
 	}
 
@@ -112,7 +112,7 @@ export class ModelService {
 		return rtn;
 	}
 
-	getPercentileForTheNumberOfQuestionsForThisCell(id, idx) {
+	getPercentileForTheNumberOfQuestionsForThisCell(id, idx): number {
 		// get a count for each of the cells
 		let self = this;
 		let qcpc = this._functionPromiseService.get(self.GET_ALL_QUESTION_COUNTS_PER_CELL, self.GET_ALL_QUESTION_COUNTS_PER_CELL, { });
@@ -120,7 +120,7 @@ export class ModelService {
 		if (qcpc) {
 			let data = {'questionCountsPerCell': qcpc};
 			let gcqc = this._functionPromiseService.get(self.GET_QUESTION_COUNT_OF_A_GIVEN_CELL+""+id+"-"+idx+"/"+qcpc.length, self.GET_QUESTION_COUNT_OF_A_GIVEN_CELL, data)
-			
+
 
 			if (qcpc) {
 				let arr = qcpc.map((elem) => { return elem[2]; }) // arr of the question counts for each cell in the profile
@@ -161,6 +161,6 @@ export class ModelService {
 			}
 		}
 
-		return undefined;
+		return -1;
 	}
 }
