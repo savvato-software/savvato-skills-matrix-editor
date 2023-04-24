@@ -51,7 +51,7 @@ export class DisplayPage implements OnInit {
       this.refreshChildComponentFunc();
   }
 
-	getDtimTechprofileComponentController() {
+	getSkillsMatrixComponentController() {
 		return this._functionPromiseService.waitAndGet(this.funcKey, this.funcKey, { });
   }
 

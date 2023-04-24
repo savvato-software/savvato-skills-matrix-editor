@@ -70,7 +70,7 @@ export class EditorPage implements OnInit {
 		this._functionPromiseService.reset(this.funcKey);
 	}
 
-	getDtimTechprofileComponentController() {
+	getSkillsMatrixComponentController() {
 		return this._functionPromiseService.waitAndGet(this.funcKey, this.funcKey, { });
 	};
 

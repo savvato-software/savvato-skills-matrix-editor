@@ -77,7 +77,7 @@ export class QuestionDisplayPage implements OnInit {
 		});
 	}
 
-	getDtimTechprofileComponentController() {
+	getSkillsMatrixComponentController() {
 		return this._functionPromiseService.waitAndGet(this.funcKey, this.funcKey, { });
 	}
 

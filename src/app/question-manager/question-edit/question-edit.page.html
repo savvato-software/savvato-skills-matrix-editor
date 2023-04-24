@@ -16,7 +16,7 @@
 		<ion-label position="floating">Description:</ion-label>
 		<ion-input data-test="question-edit-input" (ionInput)="onQuestionDescriptionChange($event)" [value]="getQuestionDescription()" required></ion-input>
 	</ion-item>
-	<lib-skills-matrix-component [ctrl]="getDtimTechprofileComponentController()"></lib-skills-matrix-component>
+	<lib-skills-matrix-component [ctrl]="getSkillsMatrixComponentController()"></lib-skills-matrix-component>
 	<ion-button class="" [disabled]="!isSaveBtnAvailable()" (click)="onSaveBtnClicked()">Save & Go Back</ion-button>
 	<ion-button class="" (click)="onCancelBtnClicked()">Cancel</ion-button>
 </ion-content>
