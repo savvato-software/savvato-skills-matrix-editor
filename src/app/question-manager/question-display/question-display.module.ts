@@ -8,7 +8,7 @@ import { QuestionDisplayPageRoutingModule } from './question-display-routing.mod
 
 import { QuestionDisplayPage } from './question-display.page';
 
-import { DtimTechprofileModule } from '@savvato-software/dtim-techprofile-component';
+import { SavvatoSkillsMatrixComponentModule} from "savvato-skills-matrix-component";
 
 @NgModule({
   imports: [
@@ -16,7 +16,7 @@ import { DtimTechprofileModule } from '@savvato-software/dtim-techprofile-compon
     FormsModule,
     IonicModule,
     QuestionDisplayPageRoutingModule,
-    DtimTechprofileModule
+    SavvatoSkillsMatrixComponentModule
   ],
   declarations: [QuestionDisplayPage]
 })

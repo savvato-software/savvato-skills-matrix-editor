@@ -7,8 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { QuestionEditPageRoutingModule } from './question-edit-routing.module';
 
 import { QuestionEditPage } from './question-edit.page';
-
-import { DtimTechprofileModule } from '@savvato-software/dtim-techprofile-component';
+import { SavvatoSkillsMatrixComponentModule } from "savvato-skills-matrix-component";
 
 @NgModule({
   imports: [
@@ -16,7 +15,7 @@ import { DtimTechprofileModule } from '@savvato-software/dtim-techprofile-compon
     FormsModule,
     IonicModule,
     QuestionEditPageRoutingModule,
-    DtimTechprofileModule
+    SavvatoSkillsMatrixComponentModule
   ],
   declarations: [QuestionEditPage]
 })

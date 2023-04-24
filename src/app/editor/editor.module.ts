@@ -8,7 +8,7 @@ import { EditorPageRoutingModule } from './editor-routing.module';
 
 import { EditorPage } from './editor.page';
 
-import { DtimTechprofileModule } from '@savvato-software/dtim-techprofile-component';
+import { SavvatoSkillsMatrixComponentModule } from "savvato-skills-matrix-component";
 
 @NgModule({
   imports: [
@@ -17,7 +17,7 @@ import { DtimTechprofileModule } from '@savvato-software/dtim-techprofile-compon
     FormsModule,
     IonicModule,
     EditorPageRoutingModule,
-    DtimTechprofileModule
+    SavvatoSkillsMatrixComponentModule
   ],
   declarations: [EditorPage]
 })
