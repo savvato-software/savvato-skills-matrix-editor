@@ -7,7 +7,7 @@ import { TechProfileModelService } from '@savvato-software/savvato-javascript-se
 import { environment } from '../../../_environments/environment';
 
 @Component({
-  selector: 'app-tech-profile-topic-edit',
+  selector: 'app-skills-matrix-topic-edit',
   templateUrl: './skills-matrix-topic-edit-page.component.html',
   styleUrls: ['./skills-matrix-topic-edit-page.component.scss'],
 })

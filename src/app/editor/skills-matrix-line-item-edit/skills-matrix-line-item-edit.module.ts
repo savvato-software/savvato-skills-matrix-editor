@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { TechProfileLineItemEditPageRoutingModule } from './tech-profile-line-item-edit-routing.module';
+import { TechProfileLineItemEditPageRoutingModule } from './skills-matrix-line-item-edit-routing.module';
 
-import { TechProfileLineItemEditPage } from './tech-profile-line-item-edit.page';
+import { SkillsMatrixLineItemEditPage } from './skills-matrix-line-item-edit-page.component';
 
 @NgModule({
   imports: [
@@ -15,6 +15,6 @@ import { TechProfileLineItemEditPage } from './tech-profile-line-item-edit.page'
     IonicModule,
     TechProfileLineItemEditPageRoutingModule
   ],
-  declarations: [TechProfileLineItemEditPage]
+  declarations: [SkillsMatrixLineItemEditPage]
 })
-export class TechProfileLineItemEditPageModule {}
+export class SkillsMatrixLineItemEditPageModule {}

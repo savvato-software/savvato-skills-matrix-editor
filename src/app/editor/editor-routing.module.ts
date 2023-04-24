@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'tech-profile-line-item-edit/:lineItemId',
-    loadChildren: () => import('./tech-profile-line-item-edit/tech-profile-line-item-edit.module').then( m => m.TechProfileLineItemEditPageModule)
+    loadChildren: () => import('./skills-matrix-line-item-edit/skills-matrix-line-item-edit.module').then(m => m.SkillsMatrixLineItemEditPageModule)
   }
 ];
 

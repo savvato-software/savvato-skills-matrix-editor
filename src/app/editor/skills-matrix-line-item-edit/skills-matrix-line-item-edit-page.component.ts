@@ -7,11 +7,11 @@ import { TechProfileModelService } from '@savvato-software/savvato-javascript-se
 import { environment } from '../../../_environments/environment'
 
 @Component({
-  selector: 'app-tech-profile-line-item-edit',
-  templateUrl: './tech-profile-line-item-edit.page.html',
-  styleUrls: ['./tech-profile-line-item-edit.page.scss'],
+  selector: 'app-skills-matrix-line-item-edit',
+  templateUrl: './skills-matrix-line-item-edit-page.component.html',
+  styleUrls: ['./skills-matrix-line-item-edit-page.component.scss'],
 })
-export class TechProfileLineItemEditPage implements OnInit {
+export class SkillsMatrixLineItemEditPage implements OnInit {
 
 	dirty = false;
 	lineItem = {id: -1, name: '', l0Description: '', l1Description: '', l2Description: '', l3Description: ''}

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { TechProfileLineItemEditPage } from './tech-profile-line-item-edit.page';
+import { SkillsMatrixLineItemEditPage } from './skills-matrix-line-item-edit-page.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: TechProfileLineItemEditPage
+    component: SkillsMatrixLineItemEditPage
   }
 ];
 
