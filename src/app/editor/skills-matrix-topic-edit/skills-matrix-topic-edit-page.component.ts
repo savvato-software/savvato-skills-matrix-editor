@@ -8,10 +8,10 @@ import { environment } from '../../../_environments/environment';
 
 @Component({
   selector: 'app-tech-profile-topic-edit',
-  templateUrl: './tech-profile-topic-edit.page.html',
-  styleUrls: ['./tech-profile-topic-edit.page.scss'],
+  templateUrl: './skills-matrix-topic-edit-page.component.html',
+  styleUrls: ['./skills-matrix-topic-edit-page.component.scss'],
 })
-export class TechProfileTopicEditPage implements OnInit {
+export class SkillsMatrixTopicEditPage implements OnInit {
 
 	dirty = false;
 	topic = {id: -1, name: ''}

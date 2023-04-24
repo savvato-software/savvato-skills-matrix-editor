@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { TechProfileTopicEditPage } from './tech-profile-topic-edit.page';
+import { SkillsMatrixTopicEditPage } from './skills-matrix-topic-edit-page.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: TechProfileTopicEditPage
+    component: SkillsMatrixTopicEditPage
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class TechProfileTopicEditPageRoutingModule {}
+export class SkillsMatrixTopicEditPageRoutingModule {}

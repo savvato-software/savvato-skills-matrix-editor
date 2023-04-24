@@ -40,6 +40,9 @@ export class EditorPage implements OnInit {
 		self._functionPromiseService.initFunc(self.funcKey, () => {
 			return new Promise((resolve, reject) => {
 				resolve({
+					getEnv: () => {
+						return environment;
+					},
 					getTechProfileModelService: () => {
 						return self._techProfileModelService;
 					},

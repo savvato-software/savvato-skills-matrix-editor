@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'tech-profile-topic-edit/:topicId',
-    loadChildren: () => import('./tech-profile-topic-edit/tech-profile-topic-edit.module').then( m => m.TechProfileTopicEditPageModule)
+    loadChildren: () => import('./skills-matrix-topic-edit/skills-matrix-topic-edit.module').then(m => m.SkillsMatrixTopicEditPageModule)
   },
   {
     path: 'tech-profile-line-item-edit/:lineItemId',
