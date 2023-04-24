@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { TechProfileTopicEditPage } from './tech-profile-edit.page';
+import { SkillsMatrixTopicEditPage } from './tech-profile-edit.page';
 
-describe('TechProfileTopicEditPage', () => {
-  let component: TechProfileTopicEditPage;
-  let fixture: ComponentFixture<TechProfileTopicEditPage>;
+describe('SkillsMatrixTopicEditPage', () => {
+  let component: SkillsMatrixTopicEditPage;
+  let fixture: ComponentFixture<SkillsMatrixTopicEditPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TechProfileTopicEditPage ],
+      declarations: [ SkillsMatrixTopicEditPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TechProfileTopicEditPage);
+    fixture = TestBed.createComponent(SkillsMatrixTopicEditPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

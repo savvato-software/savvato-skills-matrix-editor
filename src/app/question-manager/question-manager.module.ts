@@ -8,7 +8,7 @@ import { QuestionManagerPageRoutingModule } from './question-manager-routing.mod
 
 import { QuestionManagerPage } from './question-manager.page';
 
-import { SavvatoSkillsMatrixComponentModule } from "savvato-skills-matrix-component";
+import { SavvatoSkillsMatrixComponentModule } from "@savvato-software/savvato-skills-matrix-component";
 
 @NgModule({
   imports: [

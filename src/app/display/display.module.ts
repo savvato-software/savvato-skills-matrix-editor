@@ -8,7 +8,7 @@ import { DisplayPageRoutingModule } from './display-routing.module';
 
 import { DisplayPage } from './display.page';
 
-import { SavvatoSkillsMatrixComponentModule } from "savvato-skills-matrix-component";
+import { SavvatoSkillsMatrixComponentModule } from "@savvato-software/savvato-skills-matrix-component";
 
 @NgModule({
   imports: [

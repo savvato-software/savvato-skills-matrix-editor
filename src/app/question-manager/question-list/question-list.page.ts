@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { QuestionService } from '../../_services/question.service';
-import { TechProfileModelService } from '@savvato-software/savvato-skills-matrix-services';
+import { SkillsMatrixModelService } from '@savvato-software/savvato-skills-matrix-services';
 
 import { QuestionEditService } from '../../_services/question-edit.service';
 
@@ -25,14 +25,14 @@ export class QuestionListPage implements OnInit {
 			    private _router: Router,
 			    private _route: ActivatedRoute,
 			    private _questionService: QuestionService,
-			    private _techProfileModelService: TechProfileModelService,
+			    private _skillsMatrixModelService: SkillsMatrixModelService,
 			    private _questionEditService: QuestionEditService) {
 
   }
 
   ngOnInit() {
 	let self = this;
-	self._techProfileModelService.setEnvironment(environment);
+	self._skillsMatrixModelService.setEnvironment(environment);
 	self._route.params.subscribe((params) => {
 		self.lineItemId = params['lineItemId'] * 1;
 		self.levelNumber = params['level'] * 1;
@@ -46,8 +46,8 @@ export class QuestionListPage implements OnInit {
 				self.questions = questions;
 			})
 
-			self._techProfileModelService._init();
-			self.lineItem = self._techProfileModelService.getTechProfileLineItemById(self.lineItemId);
+			self._skillsMatrixModelService._init();
+			self.lineItem = self._skillsMatrixModelService.getSkillsMatrixLineItemById(self.lineItemId);
 		}
 	})
   }

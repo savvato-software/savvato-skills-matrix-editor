@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { TechProfileLineItemEditPageRoutingModule } from './skills-matrix-line-item-edit-routing.module';
+import { SkillsMatrixLineItemEditPageRoutingModule } from './skills-matrix-line-item-edit-routing.module';
 
 import { SkillsMatrixLineItemEditPage } from './skills-matrix-line-item-edit-page.component';
 
@@ -13,7 +13,7 @@ import { SkillsMatrixLineItemEditPage } from './skills-matrix-line-item-edit-pag
     CommonModule,
     FormsModule,
     IonicModule,
-    TechProfileLineItemEditPageRoutingModule
+    SkillsMatrixLineItemEditPageRoutingModule
   ],
   declarations: [SkillsMatrixLineItemEditPage]
 })

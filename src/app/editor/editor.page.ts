@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 
 import { FunctionPromiseService } from '@savvato-software/savvato-javascript-services'
 import { AlertService } from '../_services/alert.service';
-import { TechProfileModelService } from '@savvato-software/savvato-skills-matrix-services';
+import { SkillsMatrixModelService } from '@savvato-software/savvato-skills-matrix-services';
 
 import { UP, DOWN } from '../../_constants/constants';
 
@@ -20,7 +20,7 @@ export class EditorPage implements OnInit {
 	constructor(private _location: Location,
 		private _router: Router,
 		private _route: ActivatedRoute,
-		private _techProfileModelService: TechProfileModelService,
+		private _skillsMatrixModelService: SkillsMatrixModelService,
 		private _alertService: AlertService,
 		private _functionPromiseService: FunctionPromiseService) {
 
@@ -30,12 +30,11 @@ export class EditorPage implements OnInit {
 
 	selectedTopicIDsProvider = () => { return [] };
 	selectedLineItemIDsProvider = () => { return [] };
-	techProfileProvider = () => { return undefined };
 
 	ngOnInit() {
 		let self = this;
 
-		self._techProfileModelService.setEnvironment(environment);
+		self._skillsMatrixModelService.setEnvironment(environment);
 
 		self._functionPromiseService.initFunc(self.funcKey, () => {
 			return new Promise((resolve, reject) => {
@@ -43,15 +42,15 @@ export class EditorPage implements OnInit {
 					getEnv: () => {
 						return environment;
 					},
-					getTechProfileModelService: () => {
-						return self._techProfileModelService;
+					getSkillsMatrixModelService: () => {
+						return self._skillsMatrixModelService;
 					},
 					setProviderForSelectedTopicIDs: (func) => {
-						// called by the techprofile component to give us a function
+						// called by the skillsmatrix component to give us a function
 						self.selectedTopicIDsProvider = func;
 					},
 					setProviderForSelectedLineItemIDs: (func) => {
-						// called by the techprofile component to give us a function
+						// called by the skillsmatrix component to give us a function
 						self.selectedLineItemIDsProvider = func;
 					},
 					getColorMeaningString: () => {
@@ -96,8 +95,8 @@ export class EditorPage implements OnInit {
 				text: 'OK',
 				handler: (data) => {
 					if (data.topicName && data.topicName.length >= 2) {
-						self._techProfileModelService.saveSequenceInfo().then(() => {
-							self._techProfileModelService.addTopic(data.topicName).then(() => {
+						self._skillsMatrixModelService.saveSequenceInfo().then(() => {
+							self._skillsMatrixModelService.addTopic(data.topicName).then(() => {
 								// do nothing
 							});
 						});
@@ -134,8 +133,8 @@ export class EditorPage implements OnInit {
 				text: 'OK',
 				handler: (data) => {
 					if (data.lineItemName && data.lineItemName.length >= 2) {
-						self._techProfileModelService.saveSequenceInfo().then(() => {
-							self._techProfileModelService.addLineItem(self.selectedTopicIDsProvider()[0], data.lineItemName).then(() => {
+						self._skillsMatrixModelService.saveSequenceInfo().then(() => {
+							self._skillsMatrixModelService.addLineItem(self.selectedTopicIDsProvider()[0], data.lineItemName).then(() => {
 								// do nothing
 							});
 						});
@@ -150,35 +149,35 @@ export class EditorPage implements OnInit {
 	}
 
 	isSelectedTopicAbleToMoveUp() {
-		return this._techProfileModelService.isTopicAbleToMoveUp(this.selectedTopicIDsProvider()[0]);
+		return this._skillsMatrixModelService.isTopicAbleToMoveUp(this.selectedTopicIDsProvider()[0]);
 	}
 
 	onMoveTopicUpClicked() {
-		console.log(this._techProfileModelService.moveSequenceForTechProfileTopic(this.selectedTopicIDsProvider()[0], UP))
+		console.log(this._skillsMatrixModelService.moveSequenceForSkillsMatrixTopic(this.selectedTopicIDsProvider()[0], UP))
 	}
 
 	isSelectedTopicAbleToMoveDown() {
-		return this._techProfileModelService.isTopicAbleToMoveDown(this.selectedTopicIDsProvider()[0]);
+		return this._skillsMatrixModelService.isTopicAbleToMoveDown(this.selectedTopicIDsProvider()[0]);
 	}
 
 	onMoveTopicDownClicked() {
-		console.log(this._techProfileModelService.moveSequenceForTechProfileTopic(this.selectedTopicIDsProvider()[0], DOWN))
+		console.log(this._skillsMatrixModelService.moveSequenceForSkillsMatrixTopic(this.selectedTopicIDsProvider()[0], DOWN))
 	}
 
 	isSelectedLineItemAbleToMoveUp() {
-		return this._techProfileModelService.isLineItemAbleToMoveUp(this.selectedTopicIDsProvider()[0], this.selectedLineItemIDsProvider()[0]);
+		return this._skillsMatrixModelService.isLineItemAbleToMoveUp(this.selectedTopicIDsProvider()[0], this.selectedLineItemIDsProvider()[0]);
 	}
 
 	onMoveLineItemUpClicked() {
-		this._techProfileModelService.moveSequenceForTechProfileLineItem(this.selectedTopicIDsProvider()[0], this.selectedLineItemIDsProvider()[0], UP)
+		this._skillsMatrixModelService.moveSequenceForSkillsMatrixLineItem(this.selectedTopicIDsProvider()[0], this.selectedLineItemIDsProvider()[0], UP)
 	}
 
 	isSelectedLineItemAbleToMoveDown() {
-		return this._techProfileModelService.isLineItemAbleToMoveDown(this.selectedTopicIDsProvider()[0], this.selectedLineItemIDsProvider()[0]);
+		return this._skillsMatrixModelService.isLineItemAbleToMoveDown(this.selectedTopicIDsProvider()[0], this.selectedLineItemIDsProvider()[0]);
 	}
 
 	onMoveLineItemDownClicked() {
-		this._techProfileModelService.moveSequenceForTechProfileLineItem(this.selectedTopicIDsProvider()[0], this.selectedLineItemIDsProvider()[0], DOWN)
+		this._skillsMatrixModelService.moveSequenceForSkillsMatrixLineItem(this.selectedTopicIDsProvider()[0], this.selectedLineItemIDsProvider()[0], DOWN)
 	}
 
 	isEditTopicBtnAvailable() {
@@ -198,7 +197,7 @@ export class EditorPage implements OnInit {
 	}
 
 	onFinishedEditingBtnClicked() {
-		this._techProfileModelService.saveSequenceInfo().then(() => {
+		this._skillsMatrixModelService.saveSequenceInfo().then(() => {
 			this._router.navigate(['/display']);
 		});
 	}
@@ -207,7 +206,7 @@ export class EditorPage implements OnInit {
 		let rtn = false;
 		let selectedTopicIDs = this.selectedTopicIDsProvider();
 		if (selectedTopicIDs && selectedTopicIDs.length === 1) {
-			let lineItems = this._techProfileModelService.getLineItemsForATopic(selectedTopicIDs[0]);
+			let lineItems = this._skillsMatrixModelService.getLineItemsForATopic(selectedTopicIDs[0]);
 
 			let selectedLineItemIDs = this.selectedLineItemIDsProvider();
 
@@ -219,14 +218,14 @@ export class EditorPage implements OnInit {
 	}
 
 	onCopyLineItemBtnClicked() {
-		this._techProfileModelService.addExistingLineItem(this.selectedTopicIDsProvider()[0], this.selectedLineItemIDsProvider()[0]);
+		this._skillsMatrixModelService.addExistingLineItem(this.selectedTopicIDsProvider()[0], this.selectedLineItemIDsProvider()[0]);
 	}
 
 	isDeleteLineItemBtnAvailable() {
 		let rtn = false;
 		let selectedTopicIDs = this.selectedTopicIDsProvider();
 		if (selectedTopicIDs && selectedTopicIDs.length === 1) {
-			let lineItems = this._techProfileModelService.getLineItemsForATopic(selectedTopicIDs[0]);
+			let lineItems = this._skillsMatrixModelService.getLineItemsForATopic(selectedTopicIDs[0]);
 
 			let selectedLineItemIDs = this.selectedLineItemIDsProvider();
 
@@ -238,6 +237,6 @@ export class EditorPage implements OnInit {
 	}
 
 	onDeleteLineItemBtnClicked() {
-		this._techProfileModelService.deleteExistingLineItem(this.selectedTopicIDsProvider()[0], this.selectedLineItemIDsProvider()[0]);
+		this._skillsMatrixModelService.deleteExistingLineItem(this.selectedTopicIDsProvider()[0], this.selectedLineItemIDsProvider()[0]);
 	}
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { TechProfileModelService } from '@savvato-software/savvato-skills-matrix-services';
+import { SkillsMatrixModelService } from '@savvato-software/savvato-skills-matrix-services';
 
 import { environment } from '../../../_environments/environment';
 
@@ -19,22 +19,22 @@ export class SkillsMatrixTopicEditPage implements OnInit {
 	constructor(private _location: Location,
 			    private _router: Router,
 			    private _route: ActivatedRoute,
-			    private _techProfileModelService: TechProfileModelService) {
+			    private _skillsMatrixModelService: SkillsMatrixModelService) {
 
 	}
 
 	ngOnInit() {
 		let self = this;
 
-		self._techProfileModelService.setEnvironment(environment);
-		self._techProfileModelService._init();
+		self._skillsMatrixModelService.setEnvironment(environment);
+		self._skillsMatrixModelService._init();
 
 		self._route.params.subscribe((params) => {
 			let topicId = params['topicId'] * 1;
 
 			if (topicId) {
-				self._techProfileModelService.waitingPromise().then(() => {
-					self.topic = self._techProfileModelService.getTopicById(topicId)
+				self._skillsMatrixModelService.waitingPromise().then(() => {
+					self.topic = self._skillsMatrixModelService.getTopicById(topicId)
 				})
 			}
 		})
@@ -43,7 +43,7 @@ export class SkillsMatrixTopicEditPage implements OnInit {
 	onBackBtnClicked() { 
 		let self = this;
 		if (self.isDirty()) {
-			self._techProfileModelService.updateTechProfileTopic(self.topic).then((data) => {
+			self._skillsMatrixModelService.updateSkillsMatrixTopic(self.topic).then((data) => {
 				self._location.back();
 			})
 		} else {

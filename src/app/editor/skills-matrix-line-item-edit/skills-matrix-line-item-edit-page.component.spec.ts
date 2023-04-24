@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { SkillsMatrixLineItemEditPage } from './skills-matrix-line-item-edit-page.component';
 
-describe('TechProfileLineItemEditPage', () => {
+describe('SkillsMatrixLineItemEditPage', () => {
   let component: SkillsMatrixLineItemEditPage;
   let fixture: ComponentFixture<SkillsMatrixLineItemEditPage>;
 

@@ -8,7 +8,7 @@ import { ListPageRoutingModule } from './list-routing.module';
 
 import { ListPage } from './list.page';
 
-import { DtimTechprofileModule } from '@savvato-software/dtim-techprofile-component';
+import { SavvatoSkillsMatrixComponentModule } from "@savvato-software/savvato-skills-matrix-component";
 
 @NgModule({
   imports: [
@@ -17,7 +17,7 @@ import { DtimTechprofileModule } from '@savvato-software/dtim-techprofile-compon
     FormsModule,
     IonicModule,
     ListPageRoutingModule,
-    DtimTechprofileModule
+    SavvatoSkillsMatrixComponentModule
   ],
   declarations: [ListPage]
 })

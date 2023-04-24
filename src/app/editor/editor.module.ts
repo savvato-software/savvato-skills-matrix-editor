@@ -8,7 +8,7 @@ import { EditorPageRoutingModule } from './editor-routing.module';
 
 import { EditorPage } from './editor.page';
 
-import { SavvatoSkillsMatrixComponentModule } from "savvato-skills-matrix-component";
+import { SavvatoSkillsMatrixComponentModule } from "@savvato-software/savvato-skills-matrix-component";
 
 @NgModule({
   imports: [
