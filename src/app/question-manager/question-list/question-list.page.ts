@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { QuestionService } from '../../_services/question.service';
-import { TechProfileModelService } from '@savvato-software/savvato-javascript-services';
+import { TechProfileModelService } from '@savvato-software/savvato-skills-matrix-services';
 
 import { QuestionEditService } from '../../_services/question-edit.service';
 
@@ -19,7 +19,7 @@ export class QuestionListPage implements OnInit {
 	lineItem: any = undefined
 	lineItemId: any = undefined
 	levelNumber: any = undefined
-  questions: any = [];
+	questions: any = [];
 
     constructor(private _location: Location,
 			    private _router: Router,

@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 
 import { FunctionPromiseService } from '@savvato-software/savvato-javascript-services'
 import { AlertService } from '../_services/alert.service';
-import { TechProfileModelService } from '@savvato-software/savvato-javascript-services'
+import { TechProfileModelService } from '@savvato-software/savvato-skills-matrix-services';
 
 import { UP, DOWN } from '../../_constants/constants';
 

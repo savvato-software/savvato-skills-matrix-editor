@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { TechProfileModelService } from '@savvato-software/savvato-javascript-services';
+import { TechProfileModelService } from '@savvato-software/savvato-skills-matrix-services';
 
 import { environment } from '../../../_environments/environment';
 
