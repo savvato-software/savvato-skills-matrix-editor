@@ -185,7 +185,7 @@ export class EditorPage implements OnInit {
 	}
 
 	onEditTopicBtnClicked() {
-		this._router.navigate(['/editor/tech-profile-topic-edit/' + this.selectedTopicIDsProvider()[0]]);
+		this._router.navigate(['/editor/skills-matrix-topic-edit/' + this.selectedTopicIDsProvider()[0]]);
 	}
 
 	isEditLineItemBtnAvailable() {
@@ -193,7 +193,7 @@ export class EditorPage implements OnInit {
 	}
 
 	onEditLineItemBtnClicked() {
-		this._router.navigate(['/editor/tech-profile-line-item-edit/' + this.selectedLineItemIDsProvider()[0]]);
+		this._router.navigate(['/editor/skills-matrix-line-item-edit/' + this.selectedLineItemIDsProvider()[0]]);
 	}
 
 	onFinishedEditingBtnClicked() {

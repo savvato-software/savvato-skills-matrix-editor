@@ -34,7 +34,7 @@ export class DisplayPage implements OnInit {
 						return environment;
 					},
 					getColorMeaningString: () => {
-						return "This is the read only view of the Tech Profile."
+						return "This is the read only view of the Skills Matrix."
 					},
 					setRefreshFunc: (cb) => {
 						// this function is called by the component. The parameter is a function that it creates.

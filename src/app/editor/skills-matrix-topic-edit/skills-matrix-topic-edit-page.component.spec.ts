@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { SkillsMatrixTopicEditPage } from './tech-profile-edit.page';
+import { SkillsMatrixTopicEditPage } from './skills-matrix-topic-edit-page.component';
 
 describe('SkillsMatrixTopicEditPage', () => {
   let component: SkillsMatrixTopicEditPage;
