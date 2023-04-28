@@ -26,7 +26,7 @@ export class EditorPage implements OnInit {
 
 	}
 
-	funcKey = "tpepg-controller";
+	funcKey = "smepg-controller";
 
 	selectedTopicIDsProvider = () => { return [] };
 	selectedLineItemIDsProvider = () => { return [] };
@@ -62,6 +62,9 @@ export class EditorPage implements OnInit {
 					getLineItemBackgroundColor: (lineItem, isSelected) => {
 						return isSelected ? "red" : undefined;
 					},
+					getSkillBackgroundColor: (skill, isSelected) => {
+						return isSelected ? "red" : undefined;
+					}
 				});
 			})
 		});
@@ -73,7 +76,7 @@ export class EditorPage implements OnInit {
 	}
 
 	getSkillsMatrixComponentController() {
-		return this._functionPromiseService.waitAndGet(this.funcKey, this.funcKey, { });
+		return this._functionPromiseService.getUsingAPromise(this.funcKey, this.funcKey, { });
 	};
 
 	onNewTopicBtnClicked() {
