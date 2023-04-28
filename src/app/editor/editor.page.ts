@@ -30,6 +30,7 @@ export class EditorPage implements OnInit {
 
 	selectedTopicIDsProvider = () => { return [] };
 	selectedLineItemIDsProvider = () => { return [] };
+	selectedLevelIDProvider = () => { return -1; }
 
 	ngOnInit() {
 		let self = this;
@@ -53,6 +54,10 @@ export class EditorPage implements OnInit {
 						// called by the skillsmatrix component to give us a function
 						self.selectedLineItemIDsProvider = func;
 					},
+					setProviderForSelectedLevelID: (func) => {
+						// called by the skillsmatrix component to give us a function
+						self.selectedLevelIDProvider = func;
+					},
 					getColorMeaningString: () => {
 						return "Red means selected. Selected means you can edit it!"
 					},
@@ -62,7 +67,7 @@ export class EditorPage implements OnInit {
 					getLineItemBackgroundColor: (lineItem, isSelected) => {
 						return isSelected ? "red" : undefined;
 					},
-					getSkillBackgroundColor: (skill, isSelected) => {
+					getSkillBackgroundColor: (lineItem, skill, isSelected) => {
 						return isSelected ? "red" : undefined;
 					}
 				});
@@ -241,5 +246,22 @@ export class EditorPage implements OnInit {
 
 	onDeleteLineItemBtnClicked() {
 		this._skillsMatrixModelService.deleteExistingLineItem(this.selectedTopicIDsProvider()[0], this.selectedLineItemIDsProvider()[0]);
+	}
+
+	isEditSkillsBtnAvailable() {
+		let selectedLineItemIDs = this.selectedLineItemIDsProvider();
+		let selectedLevelID = this.selectedLevelIDProvider();
+		let rtn = false;
+
+		if (selectedLineItemIDs.length > 0) {
+			let skills = this._skillsMatrixModelService.getSkillsForALineItemAndLevel(selectedLineItemIDs[0], selectedLevelID);
+			rtn = skills.length > 0;
+		}
+
+		return rtn;
+	}
+
+	onEditSkillsBtnClicked() {
+
 	}
 }
