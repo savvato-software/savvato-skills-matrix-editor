@@ -249,19 +249,10 @@ export class EditorPage implements OnInit {
 	}
 
 	isEditSkillsBtnAvailable() {
-		let selectedLineItemIDs = this.selectedLineItemIDsProvider();
-		let selectedLevelID = this.selectedLevelIDProvider();
-		let rtn = false;
-
-		if (selectedLineItemIDs.length > 0) {
-			let skills = this._skillsMatrixModelService.getSkillsForALineItemAndLevel(selectedLineItemIDs[0], selectedLevelID);
-			rtn = skills.length > 0;
-		}
-
-		return rtn;
+		return this.selectedLineItemIDsProvider().length > 0;
 	}
 
 	onEditSkillsBtnClicked() {
-
+		this._router.navigate(['/editor/skills-matrix-line-item-skills-edit/' + this.selectedLineItemIDsProvider()[0]]);
 	}
 }

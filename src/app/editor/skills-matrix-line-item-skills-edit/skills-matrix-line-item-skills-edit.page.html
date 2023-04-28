@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>skills-matrix-line-item-skills-edit</ion-title>
+  </ion-toolbar>
+  <ion-button class="" [disabled]="!isSelectedSkillAbleToMoveUp()" (click)="onMoveSkillUpClicked()">Move Skill Up</ion-button>
+  <ion-button class="" [disabled]="!isSelectedSkillAbleToMoveDown()" (click)="onMoveSkillDownClicked()">Move Skill Down</ion-button>
+  <ion-button class="" [disabled]="!isSelectedSkillAbleToMove()" (click)="onMoveSkillClicked()">Move Skill</ion-button>
+  <ion-button class="" [disabled]="!isSkillSelected()" (click)="onAddSkillClicked()">Add Skill</ion-button>
+  <ion-button class="" [disabled]="!isSkillSelected()" (click)="onDeleteSkillClicked()">Delete Skill</ion-button>
+</ion-header>
+
+<ion-content>
+  Level 1
+  <ion-list>
+    <ion-item *ngFor="let skill of getSkills(1)" (click)="onSkillClicked(skill, 1)">
+      <div [ngStyle]="{'background-color':getBackgroundColor(skill, 1)}">
+        {{skill.description}}
+      </div>
+    </ion-item>
+  </ion-list>
+  Level 2
+  <ion-list>
+    <ion-item *ngFor="let skill of getSkills(2)" (click)="onSkillClicked(skill, 2)">
+      <div [ngStyle]="{'background-color':getBackgroundColor(skill, 2)}">
+        {{skill.description}}
+      </div>
+    </ion-item>
+  </ion-list>
+  Level 3
+  <ion-list>
+    <ion-item *ngFor="let skill of getSkills(3)" (click)="onSkillClicked(skill, 3)">
+      <div [ngStyle]="{'background-color':getBackgroundColor(skill, 3)}">
+        {{skill.description}}
+      </div>
+    </ion-item>
+  </ion-list>
+  Level 4
+  <ion-list>
+    <ion-item *ngFor="let skill of getSkills(4)" (click)="onSkillClicked(skill, 4)">
+      <div [ngStyle]="{'background-color':getBackgroundColor(skill, 4)}">
+        {{skill.description}}
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>
