@@ -119,4 +119,8 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
 
     return "white";
   }
+
+  onFinishedEditingBtnClicked() {
+    this._router.navigate(['/editor']);
+  }
 }
