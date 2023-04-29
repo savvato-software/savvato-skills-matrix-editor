@@ -39,6 +39,15 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
         .sort((a: any, b: any) => { return a['sequence'] > b['sequence']; });
   }
 
+  getLineItemName() {
+    let li = this._skillsMatrixModelService.getLineItemById(this.lineItemId);
+
+    if (li)
+      return li['name'];
+    else
+      return '';
+  }
+
   isSkillSelected() {
     return this.selectedSkillId > 0;
   }
