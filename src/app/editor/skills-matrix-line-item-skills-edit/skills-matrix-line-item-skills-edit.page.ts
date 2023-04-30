@@ -4,6 +4,7 @@ import {SkillsMatrixModelService} from "@savvato-software/savvato-skills-matrix-
 
 import { environment } from '../../../_environments/environment'
 import {SequenceService} from "@savvato-software/savvato-javascript-services";
+import {AlertController} from "@ionic/angular";
 
 @Component({
   selector: 'app-skills-matrix-line-item-skills-edit',
@@ -19,7 +20,8 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
   constructor(private _router: Router,
               private _route: ActivatedRoute,
               private _skillsMatrixModelService: SkillsMatrixModelService,
-              private _sequenceService: SequenceService) {
+              private _sequenceService: SequenceService,
+              private _alertController: AlertController) {
 
   }
 
@@ -52,8 +54,31 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
     return this.selectedSkillId > 0;
   }
 
-  onAddSkillClicked() {
+  async onAddSkillClicked() {
+      const alert = await this._alertController.create({
+        header: 'Enter text',
+        inputs: [
+          {
+            name: 'string',
+            type: 'text',
+            placeholder: 'Enter a description for this skill',
+          }
+        ],
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+          },
+          {
+            text: 'Submit',
+            handler: data => {
+              this._skillsMatrixModelService.addSkill(this.lineItemId, this.selectedSkillLevelId, data.string);
+            }
+          }
+        ]
+      });
 
+      await alert.present();
   }
 
   onDeleteSkillClicked() {
@@ -121,6 +146,9 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
   }
 
   onFinishedEditingBtnClicked() {
+
+    // TODO: Save changes
+
     this._router.navigate(['/editor']);
   }
 }
