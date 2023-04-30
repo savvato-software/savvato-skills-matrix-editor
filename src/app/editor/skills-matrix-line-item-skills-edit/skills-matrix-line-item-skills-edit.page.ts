@@ -82,7 +82,10 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
   }
 
   onDeleteSkillClicked() {
-
+    this._skillsMatrixModelService.deleteSkill(this.lineItemId, this.selectedSkillId).then(() => {
+      this.selectedSkillId = -1;
+      this.selectedSkillLevelId = -1;
+    })
   }
 
   isSelectedSkillAbleToMoveUp() {
