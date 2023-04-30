@@ -88,6 +88,33 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
     })
   }
 
+  async onEditSkillClicked() {
+    const alert = await this._alertController.create({
+      header: 'Enter text',
+      inputs: [
+        {
+          name: 'string',
+          type: 'text',
+          placeholder: 'Enter a description for this skill',
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'Submit',
+          handler: data => {
+            this._skillsMatrixModelService.updateSkill(this.selectedSkillId, data.string);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
   isSelectedSkillAbleToMoveUp() {
     const skills = this._skillsMatrixModelService.getSkillsForALineItemAndLevel(this.lineItemId, this.selectedSkillLevelId);
 

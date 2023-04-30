@@ -5,6 +5,7 @@
   <ion-button class="" [disabled]="!isSelectedSkillAbleToMoveUp()" (click)="onMoveSkillUpClicked()">Move Skill Up</ion-button>
   <ion-button class="" [disabled]="!isSelectedSkillAbleToMoveDown()" (click)="onMoveSkillDownClicked()">Move Skill Down</ion-button>
   <ion-button class="" [disabled]="!isSelectedSkillAbleToMove()" (click)="onMoveSkillClicked()">Move Skill</ion-button>
+  <ion-button class="" [disabled]="!isSkillSelected()" (click)="onEditSkillClicked()">Edit Skill</ion-button>
   <ion-button class="" [disabled]="!isSkillSelected()" (click)="onAddSkillClicked()">Add Skill</ion-button>
   <ion-button class="" [disabled]="!isSkillSelected()" (click)="onDeleteSkillClicked()">Delete Skill</ion-button>
 </ion-header>
