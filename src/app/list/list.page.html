@@ -4,9 +4,15 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>List</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="tertiary" (click)="onCreateBtnClick()">Create</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <!--  Get List from API, and display it -->
+  <ion-item *ngFor="let sm of getSkillsMatrices()">
+    {{sm['name']}}
+  </ion-item>
+  <ion-button color="tertiary" (click)="onCreateBtnClick()">Create</ion-button>
 </ion-content>

@@ -16,6 +16,10 @@ const routes: Routes = [
     loadChildren: () => import('./question-manager/question-manager.module').then( m => m.QuestionManagerPageModule)
   },
   {
+    path: 'list',
+    loadChildren: () => import('./list/list.module').then( m => m.ListPageModule)
+  },
+  {
     path: 'display',
     loadChildren: () => import('./display/display.module').then( m => m.DisplayPageModule)
   },
