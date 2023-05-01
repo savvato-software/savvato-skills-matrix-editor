@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'display',
     loadChildren: () => import('./display/display.module').then( m => m.DisplayPageModule)
+  },
+  {
+    path: 'export',
+    loadChildren: () => import('./export/export.module').then( m => m.ExportPageModule)
   }
 ];
 
