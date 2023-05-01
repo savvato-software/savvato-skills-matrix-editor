@@ -176,9 +176,8 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
   }
 
   onFinishedEditingBtnClicked() {
-
-    // TODO: Save changes
-
-    this._router.navigate(['/editor']);
+    this._skillsMatrixModelService.saveSkillSequenceInfo().then(() => {
+      this._router.navigate(['/editor']);
+    });
   }
 }
