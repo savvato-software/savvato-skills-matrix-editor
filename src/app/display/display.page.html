@@ -4,10 +4,18 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Display</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="tertiary" (click)="onEditBtnClicked()">Edit Skills Matrix</ion-button>
+    </ion-buttons>
   </ion-toolbar>
-  <ion-button class="" (click)="onEditBtnClicked()">Edit Skills Matrix</ion-button>
 </ion-header>
 
 <ion-content>
   <lib-skills-matrix-component [ctrl]="getSkillsMatrixComponentController()"></lib-skills-matrix-component>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar id="bottom-toolbar" color="light">
+    <ion-button (click)="onListPageBtnClicked()" fill="clear"><ion-icon name="albums"></ion-icon></ion-button>
+  </ion-toolbar>
+</ion-footer>
