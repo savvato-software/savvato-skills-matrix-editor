@@ -14,7 +14,7 @@ export class ExportPage implements OnInit {
 
   ngOnInit() {
     this._skillsMatrixModelService.setEnvironment(environment);
-    this._skillsMatrixModelService._init()
+    this._skillsMatrixModelService._initWithSameSkillsMatrixID()
   }
 
   onExportBtnClick() {

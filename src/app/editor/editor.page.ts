@@ -32,8 +32,14 @@ export class EditorPage implements OnInit {
 	selectedLineItemIDsProvider = () => { return [] };
 	selectedLevelIDProvider = () => { return -1; }
 
+	skillsMatrixId: number = -1;
+
 	ngOnInit() {
 		let self = this;
+
+		self._route.params.subscribe((params) => {
+			self.skillsMatrixId = params['skillsMatrixId'] * 1;
+		})
 
 		self._skillsMatrixModelService.setEnvironment(environment);
 
@@ -42,6 +48,9 @@ export class EditorPage implements OnInit {
 				resolve({
 					getEnv: () => {
 						return environment;
+					},
+					getSkillsMatrixId: () => {
+						return self.skillsMatrixId;
 					},
 					getSkillsMatrixModelService: () => {
 						return self._skillsMatrixModelService;
@@ -108,7 +117,7 @@ export class EditorPage implements OnInit {
 								// do nothing
 							});
 						});
-            return true;
+            			return true;
 					} else {
 						return false; // disable the button
 					}
@@ -206,7 +215,7 @@ export class EditorPage implements OnInit {
 
 	onFinishedEditingBtnClicked() {
 		this._skillsMatrixModelService.saveSequenceInfo().then(() => {
-			this._router.navigate(['/display']);
+			this._router.navigate(['/display/' + this.skillsMatrixId]);
 		});
 	}
 

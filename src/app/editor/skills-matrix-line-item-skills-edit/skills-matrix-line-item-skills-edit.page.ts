@@ -29,7 +29,7 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
     let self = this;
 
     self._skillsMatrixModelService.setEnvironment(environment);
-    self._skillsMatrixModelService._init();
+    self._skillsMatrixModelService._initWithSameSkillsMatrixID();
 
     self._route.params.subscribe((params) => {
       self.lineItemId = params['lineItemId'] * 1;
@@ -56,13 +56,18 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
 
   async onAddSkillClicked() {
       const alert = await this._alertController.create({
-        header: 'Enter text',
+        header: 'Choose a Level, enter a Description',
         inputs: [
           {
             name: 'string',
             type: 'text',
-            placeholder: 'Enter a description for this skill',
-          }
+            placeholder: 'Enter String'
+          },
+          {
+            name: 'level',
+            type: 'number',
+            placeholder: 'Enter Level'
+          },
         ],
         buttons: [
           {
@@ -72,8 +77,17 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
           {
             text: 'Submit',
             handler: data => {
-              this._skillsMatrixModelService.addSkill(this.lineItemId, this.selectedSkillLevelId, data.string);
-            }
+              if (!data || !data.level || !data.string)
+                return false;
+
+              if (data.level < 1)
+                data.level = 1;
+              else if (data.level > 4)
+                data.level = 4;
+
+              this._skillsMatrixModelService.addSkill(this.lineItemId, data.level, data.string);
+              return true;
+            },
           }
         ]
       });
@@ -176,7 +190,7 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
           { text: 'Cancel', role: 'cancel' },
           { text: 'OK', handler: (data) => { this._skillsMatrixModelService.moveSkillToAnotherLevel(this.lineItemId, this.selectedSkillId, data)
                 .then(() => {
-                  this._skillsMatrixModelService._init(false);
+                  this._skillsMatrixModelService._initWithSameSkillsMatrixID(false);
                 })} }
         ]
       });
@@ -203,7 +217,7 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
 
   onFinishedEditingBtnClicked() {
     this._skillsMatrixModelService.saveSkillSequenceInfo().then(() => {
-      this._router.navigate(['/editor']);
+      this._router.navigate(['/editor/' + this._skillsMatrixModelService.getModel()['id']]);
     });
   }
 }

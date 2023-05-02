@@ -46,7 +46,7 @@ export class QuestionListPage implements OnInit {
 				self.questions = questions;
 			})
 
-			self._skillsMatrixModelService._init();
+			self._skillsMatrixModelService._initWithSameSkillsMatrixID();
 			self.lineItem = self._skillsMatrixModelService.getSkillsMatrixLineItemById(self.lineItemId);
 		}
 	})

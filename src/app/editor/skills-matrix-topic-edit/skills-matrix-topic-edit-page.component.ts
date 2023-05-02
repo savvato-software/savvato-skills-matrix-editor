@@ -27,7 +27,7 @@ export class SkillsMatrixTopicEditPage implements OnInit {
 		let self = this;
 
 		self._skillsMatrixModelService.setEnvironment(environment);
-		self._skillsMatrixModelService._init();
+		self._skillsMatrixModelService._initWithSameSkillsMatrixID();
 
 		self._route.params.subscribe((params) => {
 			let topicId = params['topicId'] * 1;

@@ -6,7 +6,7 @@ import { FunctionPromiseService } from '@savvato-software/savvato-javascript-ser
 
 import { environment } from '../../_environments/environment'
 import {SkillsMatrixAPIService, SkillsMatrixModelService} from "@savvato-software/savvato-skills-matrix-services";
-import {AlertController} from "@ionic/angular";
+import {AlertService} from "../_services/alert.service";
 
 @Component({
   selector: 'app-list',
@@ -20,7 +20,7 @@ export class ListPage implements OnInit {
 	constructor(private _location: Location,
 				private _router: Router,
 				private _route: ActivatedRoute,
-                private _alertController: AlertController,
+                private _alertService: AlertService,
                 private _skillsMatrixApiService: SkillsMatrixAPIService,
 				private _functionPromiseService: FunctionPromiseService) {
 
@@ -34,11 +34,17 @@ export class ListPage implements OnInit {
   }
 
   getSkillsMatrices() {
-        return this.model;
+      return this.model;
+  }
+
+  onSkillsMatrixClick(skillsMatrix: any) {
+      this._router.navigate(['/display/' + skillsMatrix['id']]);
   }
 
   async onCreateBtnClick() {
-      const alert = await this._alertController.create({
+        const self = this;
+
+        self._alertService.show({
           header: 'Enter text',
           inputs: [
               {
@@ -55,18 +61,19 @@ export class ListPage implements OnInit {
               {
                   text: 'Submit',
                   handler: data => {
-                      this._skillsMatrixApiService.addSkillsMatrix(data.string).then(() => {
-                          this._skillsMatrixApiService.getAllSkillsMatrices().then((sms) => {
-                              this.model = sms;
+                      if (data && data.string) {
+                          this._skillsMatrixApiService.addSkillsMatrix(data.string).then(() => {
+                              this._skillsMatrixApiService.getAllSkillsMatrices().then((sms) => {
+                                  this.model = sms;
+                              })
                           })
-
-                      })
+                          return true;
+                      } else {
+                        return false;
+                      }
                   }
               }
           ]
       });
-
-      await alert.present();
-
   }
 }

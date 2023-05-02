@@ -13,6 +13,8 @@ import { environment } from '../../_environments/environment'
 })
 export class DisplayPage implements OnInit {
 
+	skillsMatrixId: number = -1;
+
 	constructor(private _location: Location,
 				private _router: Router,
 				private _route: ActivatedRoute,
@@ -27,11 +29,19 @@ export class DisplayPage implements OnInit {
   ngOnInit() {
     let self = this;
 
+	  self._route.params.subscribe((params) => {
+		  self.skillsMatrixId = params['skillsMatrixId'] * 1;
+	  })
+
 		self._functionPromiseService.initFunc(self.funcKey, () => {
 			return new Promise((resolve, reject) => {
 				resolve({
 					getEnv: () => {
 						return environment;
+					},
+					getSkillsMatrixId: () => {
+						console.log("*** skillsMatrixId = " + self.skillsMatrixId)
+						return self.skillsMatrixId;
 					},
 					getColorMeaningString: () => {
 						return "This is the read only view of the Skills Matrix."
@@ -56,6 +66,6 @@ export class DisplayPage implements OnInit {
   }
 
   onEditBtnClicked() {
-		this._router.navigate(['/editor/']);
+		this._router.navigate(['/editor/' + this.skillsMatrixId]);
   }
 }
