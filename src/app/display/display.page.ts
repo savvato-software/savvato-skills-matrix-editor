@@ -36,6 +36,8 @@ export class DisplayPage implements OnInit {
 		  self.skillsMatrixId = params['skillsMatrixId'] * 1;
 	  })
 
+	  self._functionPromiseService.reset(self.funcKey);
+
 		self._functionPromiseService.initFunc(self.funcKey, () => {
 			return new Promise((resolve, reject) => {
 				resolve({
