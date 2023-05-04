@@ -33,6 +33,10 @@ export class ListPage implements OnInit {
      })
   }
 
+  ionViewWillEnter() {
+    this.ngOnInit();
+  }
+
   getSkillsMatrices() {
       return this.model;
   }

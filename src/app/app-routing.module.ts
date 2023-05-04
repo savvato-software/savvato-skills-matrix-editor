@@ -32,6 +32,10 @@ const routes: Routes = [
     loadChildren: () => import('./editor/skills-matrix-line-item-skills-edit/skills-matrix-line-item-skills-edit.module').then( m => m.SkillsMatrixLineItemSkillsEditPageModule)
   },
   {
+    path: 'editor/skills-matrix-edit/:skillsMatrixId',
+    loadChildren: () => import('./editor/skills-matrix-edit/skills-matrix-edit.module').then( m => m.SkillsMatrixEditPageModule)
+  },
+  {
     path: 'question-manager',
     loadChildren: () => import('./question-manager/question-manager.module').then( m => m.QuestionManagerPageModule)
   },

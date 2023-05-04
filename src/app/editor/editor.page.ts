@@ -78,8 +78,11 @@ export class EditorPage implements OnInit {
 					getLineItemBackgroundColor: (lineItem, isSelected) => {
 						return isSelected ? "red" : undefined;
 					},
-					getSkillBackgroundColor: (lineItem, skill, isSelected) => {
-						return isSelected ? "red" : undefined;
+					getSkillBackgroundColor: (lineItem, skill, index, isSelected) => {
+						if (isSelected)
+							return "red";
+						else
+							return (index % 2 == 0 ? "white" : "lightgray")
 					},
 					skillsMatrixComponentFinishedLoadingEventHandler: (data) => {
 						self._loadingService.dismiss();
@@ -270,5 +273,9 @@ export class EditorPage implements OnInit {
 
 	onEditSkillsBtnClicked() {
 		this._router.navigate(['/editor/skills-matrix-line-item-skills-edit/' + this.selectedLineItemIDsProvider()[0]]);
+	}
+
+	onEditMatrixBtnClicked() {
+		this._router.navigate(['/editor/skills-matrix-edit/' + this.skillsMatrixId]);
 	}
 }

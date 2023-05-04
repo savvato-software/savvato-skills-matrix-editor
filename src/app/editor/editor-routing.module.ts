@@ -19,6 +19,10 @@ const routes: Routes = [
   {
     path: 'skills-matrix-line-item-skills-edit/:lineItemId',
     loadChildren: () => import('./skills-matrix-line-item-skills-edit/skills-matrix-line-item-skills-edit.module').then( m => m.SkillsMatrixLineItemSkillsEditPageModule)
+  },
+  {
+    path: 'skills-matrix-edit/:skillsMatrixId',
+    loadChildren: () => import('./skills-matrix-edit/skills-matrix-edit.module').then( m => m.SkillsMatrixEditPageModule)
   }
 ];
 

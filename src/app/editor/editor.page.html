@@ -2,6 +2,8 @@
   <ion-toolbar>
     <ion-title>Edit</ion-title>
   </ion-toolbar>
+	<ion-button class="" (click)="onEditMatrixBtnClicked()">Edit Matrix</ion-button>
+	<span class="setOfButtonsDivider">|</span>
 	<ion-button class="" (click)="onNewTopicBtnClicked()">New Topic</ion-button>
 	<ion-button class="" [disabled]="!isEditTopicBtnAvailable()" (click)="onEditTopicBtnClicked()">Edit Topic</ion-button>
 	<ion-button class="" [disabled]="!isSelectedTopicAbleToMoveUp()" (click)="onMoveTopicUpClicked()">Move Topic Up</ion-button>
