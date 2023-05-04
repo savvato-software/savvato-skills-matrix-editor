@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: SkillsMatrixLineItemSkillsEditPage
+  },
+  {
+    path: 'smlise-edit-skill/:lineItemId/:skillId',
+    loadChildren: () => import('./smlise-edit-skill/smlise-edit-skill.module').then( m => m.SmliseEditSkillPageModule)
   }
 ];
 

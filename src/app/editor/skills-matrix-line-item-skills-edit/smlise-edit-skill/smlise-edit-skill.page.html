@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>smlise-edit-skill</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  {{getValue()}}
+  <ion-item>
+    <ion-label position="floating">Skill Name</ion-label>
+    <ion-input data-test="skills-matrix-line-item-skill-edit-name" [(ngModel)]="skill.name" (ionChange)="setDirty()"></ion-input>
+  </ion-item>
+
+  <ion-button class="" (click)="onBackBtnClicked()">Go Back</ion-button>
+</ion-content>

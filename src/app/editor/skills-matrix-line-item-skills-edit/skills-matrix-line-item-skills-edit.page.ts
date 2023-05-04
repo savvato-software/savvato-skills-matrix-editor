@@ -5,6 +5,7 @@ import {SkillsMatrixModelService} from "@savvato-software/savvato-skills-matrix-
 import { environment } from '../../../_environments/environment'
 import {SequenceService} from "@savvato-software/savvato-javascript-services";
 import {AlertController} from "@ionic/angular";
+import {SmliseEditService} from "./_services/smlise-edit.service";
 
 @Component({
   selector: 'app-skills-matrix-line-item-skills-edit',
@@ -21,7 +22,8 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
               private _route: ActivatedRoute,
               private _skillsMatrixModelService: SkillsMatrixModelService,
               private _sequenceService: SequenceService,
-              private _alertController: AlertController) {
+              private _alertController: AlertController,
+              private _smliseEditService: SmliseEditService) {
 
   }
 
@@ -110,30 +112,10 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
   }
 
   async onEditSkillClicked() {
-    const alert = await this._alertController.create({
-      header: 'Enter text',
-      inputs: [
-        {
-          name: 'string',
-          type: 'text',
-          placeholder: 'Enter a description for this skill',
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-        },
-        {
-          text: 'Submit',
-          handler: data => {
-            this._skillsMatrixModelService.updateSkill(this.selectedSkillId, data.string);
-          }
-        }
-      ]
-    });
-
-    await alert.present();
+    // get list of topics and line items
+    // set in service
+   this._smliseEditService.passedValue = "YErp!"
+    await this._router.navigate(['/editor/skills-matrix-line-item-skills-edit/smlise-edit-skill/' + this.lineItemId + '/' + this.selectedSkillId]);
   }
 
   isSelectedSkillAbleToMoveUp() {
