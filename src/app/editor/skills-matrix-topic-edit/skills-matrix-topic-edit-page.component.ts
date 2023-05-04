@@ -34,7 +34,7 @@ export class SkillsMatrixTopicEditPage implements OnInit {
 
 			if (topicId) {
 				self._skillsMatrixModelService.waitingPromise().then(() => {
-					self.topic = self._skillsMatrixModelService.getTopicById(topicId)
+					self.topic = self._skillsMatrixModelService.getTopicById(topicId)[0]
 				})
 			}
 		})
