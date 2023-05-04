@@ -178,6 +178,7 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
   }
 
   async onMoveSkillClicked() {
+      const skillsMatrixModelId = this._skillsMatrixModelService.getModel()['id'];
       const alert = await this._alertController.create({
         header: 'Select Level',
         inputs: [
@@ -188,7 +189,7 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
         ],
         buttons: [
           { text: 'Cancel', role: 'cancel' },
-          { text: 'OK', handler: (data) => { this._skillsMatrixModelService.moveSkillToAnotherLevel(this.lineItemId, this.selectedSkillId, data)
+          { text: 'OK', handler: (data) => { this._skillsMatrixModelService.moveSkillToAnotherLevel(skillsMatrixModelId, this.lineItemId, this.selectedSkillId, data)
                 .then(() => {
                   this._skillsMatrixModelService._initWithSameSkillsMatrixID(false);
                 })} }
