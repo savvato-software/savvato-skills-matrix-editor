@@ -14,7 +14,7 @@ import { environment } from '../../../_environments/environment'
 export class SkillsMatrixLineItemEditPage implements OnInit {
 
 	dirty = false;
-	lineItem = {id: -1, name: '', l0Description: '', l1Description: '', l2Description: '', l3Description: ''}
+	lineItem = {id: -1, name: ''}
 
 	constructor(private _location: Location,
 			    private _router: Router,
