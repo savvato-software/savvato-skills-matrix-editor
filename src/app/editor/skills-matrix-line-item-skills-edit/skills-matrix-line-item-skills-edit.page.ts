@@ -54,7 +54,9 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
     return this.selectedSkillId > 0;
   }
 
+  mruLevel = undefined;
   async onAddSkillClicked() {
+      const self = this;
       const alert = await this._alertController.create({
         header: 'Choose a Level, enter a Description',
         inputs: [
@@ -66,7 +68,8 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
           {
             name: 'level',
             type: 'number',
-            placeholder: 'Enter Level'
+            placeholder: 'Enter Level',
+            value: self.mruLevel
           },
         ],
         buttons: [
@@ -76,7 +79,7 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
           },
           {
             text: 'Submit',
-            handler: data => {
+            handler: async (data) => {
               if (!data || !data.level || !data.string)
                 return false;
 
@@ -85,7 +88,11 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
               else if (data.level > 4)
                 data.level = 4;
 
-              this._skillsMatrixModelService.addSkill(this.lineItemId, data.level, data.string);
+              await this._skillsMatrixModelService.addSkill(this.lineItemId, data.level, data.string);
+
+              self.mruLevel = data.level;
+              await this.onAddSkillClicked();
+
               return true;
             },
           }
