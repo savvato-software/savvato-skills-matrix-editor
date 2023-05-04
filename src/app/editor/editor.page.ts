@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { FunctionPromiseService } from '@savvato-software/savvato-javascript-services'
+import {LoadingService} from "../_services/loading.service";
 import { AlertService } from '../_services/alert.service';
 import { SkillsMatrixModelService } from '@savvato-software/savvato-skills-matrix-services';
 
@@ -22,6 +23,7 @@ export class EditorPage implements OnInit {
 		private _route: ActivatedRoute,
 		private _skillsMatrixModelService: SkillsMatrixModelService,
 		private _alertService: AlertService,
+		private _loadingService: LoadingService,
 		private _functionPromiseService: FunctionPromiseService) {
 
 	}
@@ -78,10 +80,15 @@ export class EditorPage implements OnInit {
 					},
 					getSkillBackgroundColor: (lineItem, skill, isSelected) => {
 						return isSelected ? "red" : undefined;
+					},
+					skillsMatrixComponentFinishedLoadingEventHandler: (data) => {
+						self._loadingService.dismiss();
 					}
 				});
 			})
 		});
+
+		self._loadingService.show({message: "..loading.."});
 	}
 
 	ngOnDestroy() {
