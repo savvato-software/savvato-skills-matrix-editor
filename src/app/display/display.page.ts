@@ -25,18 +25,18 @@ export class DisplayPage implements OnInit {
 
 	}
 
-  funcKey = "tp-controller-1xz3-alpha";
+	funcKey = "tp-controller-1xz3-alpha";
 
-  refreshChildComponentFunc:() => any = () => {};
+	refreshChildComponentFunc:() => any = () => {};
 
-  ngOnInit() {
-    let self = this;
+	ngOnInit() {
+    	let self = this;
 
-	  self._route.params.subscribe((params) => {
-		  self.skillsMatrixId = params['skillsMatrixId'] * 1;
-	  })
+		self._route.params.subscribe((params) => {
+	  		self.skillsMatrixId = params['skillsMatrixId'] * 1;
+		})
 
-	  self._functionPromiseService.reset(self.funcKey);
+		self._functionPromiseService.reset(self.funcKey);
 
 		self._functionPromiseService.initFunc(self.funcKey, () => {
 			return new Promise((resolve, reject) => {
@@ -63,23 +63,23 @@ export class DisplayPage implements OnInit {
 			})
 		});
 
-	  self._loadingService.show({message: "..loading.."});
-  }
+		self._loadingService.show({message: "..loading.."});
+	}
 
-  ionViewWillEnter() {
-    if (this.refreshChildComponentFunc)
-      this.refreshChildComponentFunc();
-  }
+	ionViewWillEnter() {
+    	if (this.refreshChildComponentFunc)
+      		this.refreshChildComponentFunc();
+	}
 
 	getSkillsMatrixComponentController() {
 		return this._functionPromiseService.waitAndGet(this.funcKey, this.funcKey, { });
-  }
+  	}
 
-  onEditBtnClicked() {
+  	onEditBtnClicked() {
 		this._router.navigate(['/editor/' + this.skillsMatrixId]);
-  }
+  	}
 
-  onListPageBtnClicked() {
-	  this._router.navigate(['/list/'])
-  }
+  	onListPageBtnClicked() {
+  		this._router.navigate(['/list/'])
+  	}
 }
