@@ -14,7 +14,7 @@ import { SmliseEditService } from "../_services/smlise-edit.service";
 export class SmliseEditSkillPage implements OnInit {
 
   dirty = false;
-  skill = {name: '', detailLineItemId: -1}
+  skill = {description: '', detailLineItemId: -1}
 
   constructor(private _location: Location,
               private _router: Router,

@@ -7,8 +7,8 @@
 <ion-content>
   {{getValue()}}
   <ion-item>
-    <ion-label position="floating">Skill Name</ion-label>
-    <ion-input data-test="skills-matrix-line-item-skill-edit-name" [(ngModel)]="skill.name" (ionChange)="setDirty()"></ion-input>
+    <ion-label position="floating">Skill Description</ion-label>
+    <ion-input data-test="skills-matrix-line-item-skill-edit-name" [(ngModel)]="skill.description" (ionChange)="setDirty()"></ion-input>
   </ion-item>
 
   <ion-button class="" (click)="onBackBtnClicked()">Go Back</ion-button>
