@@ -5,9 +5,13 @@ import { Injectable } from '@angular/core';
 })
 export class SmliseEditService {
 
-  public passedValue: string;
+  public topics: any;
+  public getLineItemFunc: (topicId) => Array<object>
+  public selectedSkillsParentLineItemId: number;
 
   constructor() {
-    this.passedValue = '';
+    this.topics = [];
+    this.getLineItemFunc = (topicId) => [];
+    this.selectedSkillsParentLineItemId = -1;
   }
 }

@@ -5,11 +5,29 @@
 </ion-header>
 
 <ion-content>
-  {{getValue()}}
   <ion-item>
     <ion-label position="floating">Skill Description</ion-label>
     <ion-input data-test="skills-matrix-line-item-skill-edit-name" [(ngModel)]="skill.description" (ionChange)="setDirty()"></ion-input>
   </ion-item>
+</ion-content>
+<ion-content>
+  <ion-item>
+    <ion-label>Name:</ion-label>
+    <ion-select aria-label="Select Topic" (ionChange)="onSelectTopic($event)">
+      <ion-select-option *ngFor="let topic of getTopics()" [value]="{ topic }">{{ topic['name'] }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-list>
+    <ion-item *ngFor="let item of getLineItems()" (click)="onLineItemSelected(item)">
+      <div *ngIf="isLineItemSelected(item)" [ngStyle]="{'background-color':getBackgroundColor(item, true)}">
+        {{ item['name'] }}
+      </div>
+      <div *ngIf="!isLineItemSelected(item)" [ngStyle]="{'background-color':getBackgroundColor(item, false)}">
+        {{ item['name'] }}
+      </div>
+    </ion-item>
+  </ion-list>
 
   <ion-button class="" (click)="onBackBtnClicked()">Go Back</ion-button>
 </ion-content>

@@ -7,6 +7,8 @@ import {SequenceService} from "@savvato-software/savvato-javascript-services";
 import {AlertController} from "@ionic/angular";
 import {SmliseEditService} from "./_services/smlise-edit.service";
 
+import * as jp from 'jsonpath';
+
 @Component({
   selector: 'app-skills-matrix-line-item-skills-edit',
   templateUrl: './skills-matrix-line-item-skills-edit.page.html',
@@ -111,10 +113,49 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
     })
   }
 
+  getParentLineItemId() {
+    const skillsMatrix = this._skillsMatrixModelService.getModel();
+    const skillId = this.selectedSkillId;
+
+    for (const topic of skillsMatrix.topics) {
+      for (const lineItem of topic.lineItems) {
+        const skill = lineItem.skills.find(s => s.id === skillId);
+        if (skill) {
+          return lineItem.id;
+        }
+      }
+    }
+    return null;
+  }
+
   async onEditSkillClicked() {
+    const self = this;
+
+    const selectedSkillsParentLineItemId = this.getParentLineItemId();
+
     // get list of topics and line items
     // set in service
-   this._smliseEditService.passedValue = "YErp!"
+   self._smliseEditService.topics = self._skillsMatrixModelService.getTopics();
+   self._smliseEditService.selectedSkillsParentLineItemId = selectedSkillsParentLineItemId[0];
+   self._smliseEditService.getLineItemFunc = (topicId ) => {
+     let topic = self._smliseEditService.topics.filter((t: any) => { return t['id'] === topicId; })[0];
+
+     // get a list of all line items that are not the line item of my skill
+     let lineItems = [];
+
+     if (topic && topic["lineItems"])
+       lineItems = topic["lineItems"].filter((li: any) => { return li['id'] != selectedSkillsParentLineItemId; });
+
+     // filter that for any line items which have skills which dlis which refer to our line item, selectedSkillsParentLineItemId
+     lineItems = lineItems.filter((li: any) => {
+       return li["skills"].find(sk => sk["detailLineItemId"] == selectedSkillsParentLineItemId) === undefined;
+     })
+
+     // should return the line items available in this topic, minus the line item which this skill is connected to, and any line items with skills that refer to this line item (the parent of the selected skill)
+     console.log("lineItems ", lineItems)
+     return lineItems;
+   }
+
     await this._router.navigate(['/editor/skills-matrix-line-item-skills-edit/smlise-edit-skill/' + this.lineItemId + '/' + this.selectedSkillId]);
   }
 
