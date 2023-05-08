@@ -100,7 +100,7 @@ export class EditorPage implements OnInit {
 	}
 
 	getSkillsMatrixComponentController() {
-		return this._functionPromiseService.getUsingAPromise(this.funcKey, this.funcKey, { });
+		return this._functionPromiseService.waitAndGet(this.funcKey, this.funcKey, { });
 	};
 
 	onNewTopicBtnClicked() {
