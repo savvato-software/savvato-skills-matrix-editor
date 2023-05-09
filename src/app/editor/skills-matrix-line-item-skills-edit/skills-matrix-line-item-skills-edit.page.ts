@@ -22,6 +22,8 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
 
   funcKey = "smlise1";
 
+  selectedSkillProvider = () => { return null; }
+
   constructor(private _router: Router,
               private _route: ActivatedRoute,
               private _skillsMatrixModelService: SkillsMatrixModelService,
@@ -55,6 +57,9 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
             } else {
               return "white";
             }
+          },
+          setProviderForSelectedSkill: (func) => {
+            self.selectedSkillProvider = func;
           }
         })
       })
@@ -80,7 +85,7 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
   }
 
   isSkillSelected() {
-    return this.selectedSkillId > 0;
+    return !!this.selectedSkillProvider();
   }
 
   mruLevel = undefined;
