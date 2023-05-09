@@ -7,8 +7,6 @@ import {FunctionPromiseService, SequenceService} from "@savvato-software/savvato
 import {AlertController} from "@ionic/angular";
 import {SmliseEditService} from "./_services/smlise-edit.service";
 
-import * as jp from 'jsonpath';
-
 @Component({
   selector: 'app-skills-matrix-line-item-skills-edit',
   templateUrl: './skills-matrix-line-item-skills-edit.page.html',
@@ -23,6 +21,7 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
   funcKey = "smlise1";
 
   selectedSkillProvider = () => { return null; }
+  refreshComponentHandler = (liid) => { return null; }
 
   constructor(private _router: Router,
               private _route: ActivatedRoute,
@@ -44,6 +43,8 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
       self.lineItemId = params['lineItemId'] * 1;
     })
 
+    self._functionPromiseService.reset(self.funcKey);
+
     self._functionPromiseService.initFunc(self.funcKey, () => {
       return new Promise((resolve, reject) => {
         resolve({
@@ -60,6 +61,9 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
           },
           setProviderForSelectedSkill: (func) => {
             self.selectedSkillProvider = func;
+          },
+          setHandlerToRefreshComponent: (func) => {
+            self.refreshComponentHandler = func;
           }
         })
       })
@@ -68,20 +72,6 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
 
   getLineItemSkillsComponentController() {
     return this._functionPromiseService.waitAndGet(this.funcKey, this.funcKey, { });
-  }
-
-  getSkills(level: number) {
-    return this._skillsMatrixModelService.getSkillsForALineItemAndLevel(this.lineItemId, level)
-        .sort((a: any, b: any) => { return a['sequence'] > b['sequence']; });
-  }
-
-  getLineItemName() {
-    let li = this._skillsMatrixModelService.getLineItemById(this.lineItemId);
-
-    if (li)
-      return li['name'];
-    else
-      return '';
   }
 
   isSkillSelected() {
@@ -145,7 +135,7 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
 
   getParentLineItemId() {
     const skillsMatrix = this._skillsMatrixModelService.getModel();
-    const skillId = this.selectedSkillId;
+    const skillId = this.getSelectedSkillId();
 
     for (const topic of skillsMatrix.topics) {
       for (const lineItem of topic.lineItems) {
@@ -186,15 +176,18 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
      return lineItems;
    }
 
-    await this._router.navigate(['/editor/skills-matrix-line-item-skills-edit/smlise-edit-skill/' + this.lineItemId + '/' + this.selectedSkillId]);
+    await this._router.navigate(['/editor/skills-matrix-line-item-skills-edit/smlise-edit-skill/' + this.lineItemId + '/' + this.getSelectedSkillId()]);
   }
 
   isSelectedSkillAbleToMoveUp() {
+    const selectedSkillLevelId = this.getSelectedSkillLevelId()
+
     if (this.isSkillSelected()) {
-      const skills = this._skillsMatrixModelService.getSkillsForALineItemAndLevel(this.lineItemId, this.selectedSkillLevelId);
+      const skills = this._skillsMatrixModelService.getSkillsForALineItemAndLevel(this.lineItemId, selectedSkillLevelId);
 
       if (skills.length > 0) {
-        let skill = skills.find((s: any) => s['id'] === this.selectedSkillId);
+        const selectedSkillId = this.getSelectedSkillId();
+        let skill = skills.find((s: any) => s['id'] === selectedSkillId);
         if (skill)
           return this._sequenceService.isAbleToMove(skills, skill, this._sequenceService.BACKWARD);
       }
@@ -204,11 +197,14 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
   }
 
   isSelectedSkillAbleToMoveDown() {
+    const selectedSkillLevelId = this.getSelectedSkillLevelId()
+
     if (this.isSkillSelected()) {
-      const skills = this._skillsMatrixModelService.getSkillsForALineItemAndLevel(this.lineItemId, this.selectedSkillLevelId);
+      const skills = this._skillsMatrixModelService.getSkillsForALineItemAndLevel(this.lineItemId, selectedSkillLevelId);
 
       if (skills.length > 0) {
-        let skill = skills.find((s: any) => s['id'] === this.selectedSkillId);
+        const selectedSkillId = this.getSelectedSkillId();
+        let skill = skills.find((s: any) => s['id'] === selectedSkillId);
         if (skill)
           return this._sequenceService.isAbleToMove(skills, skill, this._sequenceService.FORWARD)
       }
@@ -222,58 +218,54 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
   }
 
   onMoveSkillUpClicked() {
-    const skills = this._skillsMatrixModelService.getSkillsForALineItemAndLevel(this.lineItemId, this.selectedSkillLevelId);
+    const skills = this._skillsMatrixModelService.getSkillsForALineItemAndLevel(this.lineItemId, this.getSelectedSkillLevelId());
 
-    const skill = skills.find((s: any) => s['id'] === this.selectedSkillId);
+    const skill = skills.find((s: any) => s['id'] === this.getSelectedSkillId());
 
     this._sequenceService.moveSequenceByOne(skills, skill, this._sequenceService.BACKWARD);
   }
 
   onMoveSkillDownClicked() {
-    const skills = this._skillsMatrixModelService.getSkillsForALineItemAndLevel(this.lineItemId, this.selectedSkillLevelId);
+    const skills = this._skillsMatrixModelService.getSkillsForALineItemAndLevel(this.lineItemId, this.getSelectedSkillLevelId());
 
-    const skill = skills.find((s: any) => s['id'] === this.selectedSkillId);
+    const skill = skills.find((s: any) => s['id'] === this.getSelectedSkillId());
 
     this._sequenceService.moveSequenceByOne(skills, skill, this._sequenceService.FORWARD);
   }
 
   async onMoveSkillClicked() {
+      const self = this;
       const skillsMatrixModelId = this._skillsMatrixModelService.getModel()['id'];
+      const selectedSkillLevelId = this.getSelectedSkillLevelId();
       const alert = await this._alertController.create({
         header: 'Select Level',
         inputs: [
-          { type: 'radio', label: 'Level 1', value: 1, checked: this.selectedSkillLevelId === 1, disabled: this.selectedSkillLevelId === 1 },
-          { type: 'radio', label: 'Level 2', value: 2, checked: this.selectedSkillLevelId === 2, disabled: this.selectedSkillLevelId === 2 },
-          { type: 'radio', label: 'Level 3', value: 3, checked: this.selectedSkillLevelId === 3, disabled: this.selectedSkillLevelId === 3 },
-          { type: 'radio', label: 'Level 4', value: 4, checked: this.selectedSkillLevelId === 4, disabled: this.selectedSkillLevelId === 4 },
+          { type: 'radio', label: 'Level 1', value: 1, checked: selectedSkillLevelId === 1, disabled: selectedSkillLevelId === 1 },
+          { type: 'radio', label: 'Level 2', value: 2, checked: selectedSkillLevelId === 2, disabled: selectedSkillLevelId === 2 },
+          { type: 'radio', label: 'Level 3', value: 3, checked: selectedSkillLevelId === 3, disabled: selectedSkillLevelId === 3 },
+          { type: 'radio', label: 'Level 4', value: 4, checked: selectedSkillLevelId === 4, disabled: selectedSkillLevelId === 4 },
         ],
         buttons: [
           { text: 'Cancel', role: 'cancel' },
-          { text: 'OK', handler: (data) => { this._skillsMatrixModelService.moveSkillToAnotherLevel(skillsMatrixModelId, this.lineItemId, this.selectedSkillId, data)
-                .then(() => {
-                  this._skillsMatrixModelService._initWithSameSkillsMatrixID(false);
-                })} }
-        ]
-      });
+          { text: 'OK', handler: (data) => {
+              self._skillsMatrixModelService.moveSkillToAnotherLevel(skillsMatrixModelId, self.lineItemId, self.getSelectedSkillId(), data)
+              .then(() => {
+                self.refreshComponentHandler(self.lineItemId);
+            })
+          }}]
+      })
+
       await alert.present();
   }
 
-  onSkillClicked(skill:any, level: number) {
-    if (this.selectedSkillId === skill['id']) {
-      this.selectedSkillId = -1;
-      this.selectedSkillLevelId = -1;
-    }
-    else {
-      this.selectedSkillId = skill['id'];
-      this.selectedSkillLevelId = level;
-    }
+  getSelectedSkillLevelId() {
+    const skill = this.selectedSkillProvider();
+    return !!skill ? skill['level'] : -1;
   }
 
-  getBackgroundColor(skill: any, level: number) {
-    if (skill['id'] === this.selectedSkillId)
-      return "red";
-
-    return "white";
+  getSelectedSkillId() {
+    const skill = this.selectedSkillProvider();
+    return !!skill ? skill['id'] : -1;
   }
 
   onFinishedEditingBtnClicked() {
