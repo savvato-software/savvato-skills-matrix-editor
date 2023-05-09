@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {SkillsMatrixModelService} from "@savvato-software/savvato-skills-matrix-services";
 
 import { environment } from '../../../_environments/environment'
-import {SequenceService} from "@savvato-software/savvato-javascript-services";
+import {FunctionPromiseService, SequenceService} from "@savvato-software/savvato-javascript-services";
 import {AlertController} from "@ionic/angular";
 import {SmliseEditService} from "./_services/smlise-edit.service";
 
@@ -20,11 +20,14 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
   selectedSkillId: number = -1;
   selectedSkillLevelId: number = -1;
 
+  funcKey = "smlise1";
+
   constructor(private _router: Router,
               private _route: ActivatedRoute,
               private _skillsMatrixModelService: SkillsMatrixModelService,
               private _sequenceService: SequenceService,
               private _alertController: AlertController,
+              private _functionPromiseService: FunctionPromiseService,
               private _smliseEditService: SmliseEditService) {
 
   }
@@ -38,6 +41,28 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
     self._route.params.subscribe((params) => {
       self.lineItemId = params['lineItemId'] * 1;
     })
+
+    self._functionPromiseService.initFunc(self.funcKey, () => {
+      return new Promise((resolve, reject) => {
+        resolve({
+          getLineItemId: () => self.lineItemId,
+          getSkillsMatrixModelService: () => {
+            return self._skillsMatrixModelService;
+          },
+          getSkillBackgroundColor: (skill, isSelected) => {
+            if (isSelected) {
+              return "red";
+            } else {
+              return "white";
+            }
+          }
+        })
+      })
+    })
+  }
+
+  getLineItemSkillsComponentController() {
+    return this._functionPromiseService.waitAndGet(this.funcKey, this.funcKey, { });
   }
 
   getSkills(level: number) {

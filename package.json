@@ -26,6 +26,7 @@
     "ionicons": "^6.0.3",
     "jsonpath": "^1.1.0",
     "rxjs": "~7.5.0",
+    "savvato-skills-matrix-line-item-skills-component": "file:../savvato-skills-matrix-line-item-skills-component/dist/savvato-skills-matrix-line-item-skills-component/savvato-skills-matrix-line-item-skills-component-0.0.9.tgz",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
   },

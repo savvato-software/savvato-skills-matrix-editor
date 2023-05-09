@@ -11,40 +11,7 @@
 </ion-header>
 
 <ion-content>
-  {{getLineItemName()}}
-  <hr/>
-  Level 1
-  <ion-list>
-    <ion-item *ngFor="let skill of getSkills(1)" (click)="onSkillClicked(skill, 1)">
-      <div [ngStyle]="{'background-color':getBackgroundColor(skill, 1)}">
-        {{skill.description}}
-      </div>
-    </ion-item>
-  </ion-list>
-  Level 2
-  <ion-list>
-    <ion-item *ngFor="let skill of getSkills(2)" (click)="onSkillClicked(skill, 2)">
-      <div [ngStyle]="{'background-color':getBackgroundColor(skill, 2)}">
-        {{skill.description}}
-      </div>
-    </ion-item>
-  </ion-list>
-  Level 3
-  <ion-list>
-    <ion-item *ngFor="let skill of getSkills(3)" (click)="onSkillClicked(skill, 3)">
-      <div [ngStyle]="{'background-color':getBackgroundColor(skill, 3)}">
-        {{skill.description}}
-      </div>
-    </ion-item>
-  </ion-list>
-  Level 4
-  <ion-list>
-    <ion-item *ngFor="let skill of getSkills(4)" (click)="onSkillClicked(skill, 4)">
-      <div [ngStyle]="{'background-color':getBackgroundColor(skill, 4)}">
-        {{skill.description}}
-      </div>
-    </ion-item>
-  </ion-list>
+  <lib-savvato-skills-matrix-line-item-skills-component [ctrl]="getLineItemSkillsComponentController()"></lib-savvato-skills-matrix-line-item-skills-component>
 </ion-content>
 
 <ion-footer>
