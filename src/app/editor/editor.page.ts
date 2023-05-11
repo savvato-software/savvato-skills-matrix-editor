@@ -36,6 +36,8 @@ export class EditorPage implements OnInit {
 
 	skillsMatrixId: number = -1;
 
+	skillLineItemBackgroundColorMap: Array<object> = [];
+
 	ngOnInit() {
 		let self = this;
 
@@ -76,13 +78,50 @@ export class EditorPage implements OnInit {
 						return isSelected ? "red" : undefined;
 					},
 					getLineItemBackgroundColor: (lineItem, isSelected) => {
-						return isSelected ? "red" : undefined;
+						if (isSelected)
+							return "red";
+
+						let item = this.skillLineItemBackgroundColorMap.find((item) => {
+							return item['lineItemId'] == lineItem.id;
+						});
+						if (item) {
+							return item['color'];
+						}
+
+						// TODO: again, I would like to defer to the component here, See below.
+						return "white";
 					},
 					getSkillBackgroundColor: (lineItem, skill, index, isSelected) => {
 						if (isSelected)
 							return "red";
-						else
-							return (index % 2 == 0 ? "white" : "lightgray")
+						else if (skill['detailLineItemId']) {
+							let item = self.skillLineItemBackgroundColorMap.find((item) => {
+								return item['lineItemId'] == skill['detailLineItemId'];
+							});
+							if (item) {
+								return item['color'];
+							} else {
+								let obj = {
+									lineItemId: skill['detailLineItemId'],
+									color: self.getUniqueColor(this.skillLineItemBackgroundColorMap),
+									skillId: skill.id
+								};
+								self.skillLineItemBackgroundColorMap.push(obj);
+
+								return obj['color'];
+							}
+						} else {
+							// TODO: I'd prefer some way to default to the component, as in "If our condition
+							//  doesn't apply, then let the component decide what to do." As it is now, this
+							//  bit of code is copy pasta'd from the component.
+
+							// TODO Perhaps return undefined?
+
+							if (index % 2 == 0)
+								return "white";
+							else
+								return "lightgray";
+						}
 					},
 					skillsMatrixComponentFinishedLoadingEventHandler: (data) => {
 						self._loadingService.dismiss();
@@ -92,6 +131,25 @@ export class EditorPage implements OnInit {
 		});
 
 		self._loadingService.show({message: "..loading.."});
+	}
+
+	getUniqueColor(skillLineItemColorItems: Array<object>) {
+		let color = this.getRandomColor();
+		let found = skillLineItemColorItems.find((item) => {
+			return item['color'] == color;
+		});
+		if (found) {
+			return this.getUniqueColor(skillLineItemColorItems);
+		}
+		return color;
+	}
+
+	getRandomColor() {
+		let letters = '0123456789ABCDEF';
+		let color = '#';
+		for (let i = 0; i < 6; i++)
+			color += letters[Math.floor(Math.random() * 16)];
+		return color;
 	}
 
 	ngOnDestroy() {

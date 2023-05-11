@@ -27,6 +27,8 @@ export class DisplayPage implements OnInit {
 
 	funcKey = "tp-controller-1xz3-alpha";
 
+	skillLineItemBackgroundColorMap: Array<object> = [];
+
 	refreshChildComponentFunc:() => any = () => {};
 
 	ngOnInit() {
@@ -56,6 +58,44 @@ export class DisplayPage implements OnInit {
 						//  we call this parameter function to let the component know that it should refresh its data.
 						self.refreshChildComponentFunc = cb;
 					},
+					getSkillBackgroundColor: (lineItem, skill, index) => {
+						if (skill['detailLineItemId']) {
+							let item = self.skillLineItemBackgroundColorMap.find((item) => {
+								return item['lineItemId'] == skill['detailLineItemId'];
+							});
+							if (item) {
+								return item['color'];
+							} else {
+								let obj = {
+									lineItemId: skill['detailLineItemId'],
+									color: self.getUniqueColor(this.skillLineItemBackgroundColorMap),
+									skillId: skill.id
+								};
+								self.skillLineItemBackgroundColorMap.push(obj);
+
+								return obj['color'];
+							}
+						} else {
+							// TODO: I'd prefer some way to default to the component, as in "If our condition
+							//  doesn't apply, then let the component decide what to do." As it is now, this
+							//  bit of code is copy pasta'd from the component.
+							if (index % 2 == 0)
+								return "white";
+							else
+								return "lightgray";
+						}
+					},
+					getLineItemBackgroundColor: (lineItem) => {
+						let item = this.skillLineItemBackgroundColorMap.find((item) => {
+							return item['lineItemId'] == lineItem.id;
+						});
+						if (item) {
+							return item['color'];
+						}
+
+						// TODO: again, I would like to defer to the component here, See above
+						return "white";
+					},
 					skillsMatrixComponentFinishedLoadingEventHandler: (data) => {
 						self._loadingService.dismiss();
 					}
@@ -64,6 +104,25 @@ export class DisplayPage implements OnInit {
 		});
 
 		self._loadingService.show({message: "..loading.."});
+	}
+
+	getUniqueColor(skillLineItemColorItems: Array<object>) {
+		let color = this.getRandomColor();
+		let found = skillLineItemColorItems.find((item) => {
+			return item['color'] == color;
+		});
+		if (found) {
+			return this.getUniqueColor(skillLineItemColorItems);
+		}
+		return color;
+	}
+
+	getRandomColor() {
+		let letters = '0123456789ABCDEF';
+		let color = '#';
+		for (let i = 0; i < 6; i++)
+			color += letters[Math.floor(Math.random() * 16)];
+		return color;
 	}
 
 	ionViewWillEnter() {
