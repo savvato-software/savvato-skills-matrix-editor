@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {SkillsMatrixModelService} from "@savvato-software/savvato-skills-matrix-services";
 
 import {environment} from "../../_environments/environment";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-export',
@@ -10,11 +11,26 @@ import {environment} from "../../_environments/environment";
 })
 export class ExportPage implements OnInit {
 
-  constructor(private _skillsMatrixModelService: SkillsMatrixModelService) { }
+  skillsMatrixId: string = '';
+
+  constructor(private _skillsMatrixModelService: SkillsMatrixModelService,
+              private _route: ActivatedRoute
+              ) { }
 
   ngOnInit() {
-    this._skillsMatrixModelService.setEnvironment(environment);
-    this._skillsMatrixModelService._initWithSameSkillsMatrixID()
+
+    const self = this;
+    self._route.params.subscribe((params) => {
+      self.skillsMatrixId = params['skillsMatrixId'];
+
+      self._skillsMatrixModelService.setEnvironment(environment);
+      self._skillsMatrixModelService._init(self.skillsMatrixId, true);
+    })
+
+  }
+
+  getName() {
+    return this._skillsMatrixModelService.isSkillsMatrixAvailable() && this._skillsMatrixModelService.getName();
   }
 
   onExportBtnClick() {
