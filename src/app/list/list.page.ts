@@ -42,7 +42,7 @@ export class ListPage implements OnInit {
   }
 
   onSkillsMatrixClick(skillsMatrix: any) {
-      this._router.navigate(['/display/' + skillsMatrix['id']]);
+      this._router.navigate(['/display/' + skillsMatrix['skillsMatrixId']]);
   }
 
   async onCreateBtnClick() {
