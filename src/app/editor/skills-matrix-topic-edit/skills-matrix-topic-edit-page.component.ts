@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { SkillsMatrixModelService } from '@savvato-software/savvato-skills-matrix-services';
+import {SkillsMatrixModelService, Topic} from '@savvato-software/savvato-skills-matrix-services';
 
 import { environment } from '../../../_environments/environment';
 
@@ -14,7 +14,7 @@ import { environment } from '../../../_environments/environment';
 export class SkillsMatrixTopicEditPage implements OnInit {
 
 	dirty = false;
-	topic = {id: -1, name: ''}
+	topic: Topic = {id: '', name: ''}
 
 	constructor(private _location: Location,
 			    private _router: Router,
@@ -30,7 +30,7 @@ export class SkillsMatrixTopicEditPage implements OnInit {
 		self._skillsMatrixModelService._initWithSameSkillsMatrixID();
 
 		self._route.params.subscribe((params) => {
-			let topicId = params['topicId'] * 1;
+			let topicId: string = params['topicId'];
 
 			if (topicId) {
 				self._skillsMatrixModelService.waitingPromise().then(() => {

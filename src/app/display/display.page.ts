@@ -15,7 +15,7 @@ import { environment } from '../../_environments/environment'
 })
 export class DisplayPage implements OnInit {
 
-	skillsMatrixId: number = -1;
+	skillsMatrixId: string = '';
 
 	constructor(private _location: Location,
 				private _router: Router,
@@ -35,7 +35,7 @@ export class DisplayPage implements OnInit {
     	let self = this;
 
 		self._route.params.subscribe((params) => {
-	  		self.skillsMatrixId = params['skillsMatrixId'] * 1;
+	  		self.skillsMatrixId = params['skillsMatrixId'];
 		})
 
 		self._functionPromiseService.reset(self.funcKey);

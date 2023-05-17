@@ -14,9 +14,9 @@ import {SmliseEditService} from "./_services/smlise-edit.service";
 })
 export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
 
-  lineItemId: number = -1;
-  selectedSkillId: number = -1;
-  selectedSkillLevelId: number = -1;
+  lineItemId: string = '';
+  selectedSkillId: string = '';
+  selectedSkillLevelId: string = '';
 
   funcKey = "smlise1";
 
@@ -40,7 +40,7 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
     self._skillsMatrixModelService._initWithSameSkillsMatrixID();
 
     self._route.params.subscribe((params) => {
-      self.lineItemId = params['lineItemId'] * 1;
+      self.lineItemId = params['lineItemId'];
     })
 
     self._functionPromiseService.reset(self.funcKey);
@@ -128,8 +128,8 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
 
   onDeleteSkillClicked() {
     this._skillsMatrixModelService.deleteSkill(this.lineItemId, this.selectedSkillId).then(() => {
-      this.selectedSkillId = -1;
-      this.selectedSkillLevelId = -1;
+      this.selectedSkillId = '';
+      this.selectedSkillLevelId = '';
     })
   }
 
@@ -145,6 +145,10 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
         }
       }
     }
+
+    // WILO.. need to set the dropdown to the topic of the detail line item
+    // and show the line item selected. may 11 13:57
+
     return null;
   }
 
@@ -265,7 +269,7 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
 
   getSelectedSkillId() {
     const skill = this.selectedSkillProvider();
-    return !!skill ? skill['id'] : -1;
+    return !!skill ? skill['id'] : '';
   }
 
   onFinishedEditingBtnClicked() {

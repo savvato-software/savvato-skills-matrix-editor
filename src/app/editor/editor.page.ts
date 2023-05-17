@@ -34,7 +34,7 @@ export class EditorPage implements OnInit {
 	selectedLineItemIDsProvider = () => { return [] };
 	selectedLevelIDProvider = () => { return -1; }
 
-	skillsMatrixId: number = -1;
+	skillsMatrixId: string = '';
 
 	skillLineItemBackgroundColorMap: Array<object> = [];
 
@@ -42,7 +42,7 @@ export class EditorPage implements OnInit {
 		let self = this;
 
 		self._route.params.subscribe((params) => {
-			self.skillsMatrixId = params['skillsMatrixId'] * 1;
+			self.skillsMatrixId = params['skillsMatrixId'];
 		})
 
 		self._skillsMatrixModelService.setEnvironment(environment);

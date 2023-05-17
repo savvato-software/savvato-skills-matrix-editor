@@ -16,9 +16,18 @@ import { SmliseEditService } from "../_services/smlise-edit.service";
 export class SmliseEditSkillPage implements OnInit {
 
   dirty = false;
-  skill: Skill = {id: -1, description: '', detailLineItemId: -1}
+  skill: Skill = {id: '', description: '', detailLineItemId: ''}
 
-  selectedTopicId = -1;
+  selectedTopicId: string = '';
+
+  lineItem: any = undefined;
+
+  detailLineItem: any = undefined;
+  parentTopicOfDetailLineItem: any = undefined;
+
+  selectedParentTopic: any = undefined;
+
+  showDetailLineItemControls: boolean = false;
 
   constructor(private _location: Location,
               private _router: Router,
@@ -35,16 +44,54 @@ export class SmliseEditSkillPage implements OnInit {
     self._skillsMatrixModelService._initWithSameSkillsMatrixID();
 
     self._route.params.subscribe((params) => {
-      let lineItemId = params['lineItemId'] * 1;
-      let skillId = params['skillId'] * 1;
+      let lineItemId: string = params['lineItemId'];
+      let skillId: string = params['skillId'];
 
       if (lineItemId && skillId) {
         self._skillsMatrixModelService.waitingPromise().then(() => {
-          //////////
-          self.skill = self._skillsMatrixModelService.getSkillByLineItemId(lineItemId, skillId);
-        })
+              //////////
+              self.skill = self._skillsMatrixModelService.getSkillByLineItemId(lineItemId, skillId);
+
+              self.lineItem = self._skillsMatrixModelService.getSkillsMatrixLineItemById(lineItemId);
+
+              if (self.skill['detailLineItemId']) {
+                self.detailLineItem = self._skillsMatrixModelService.getSkillsMatrixLineItemById(self.skill['detailLineItemId']);
+                self.parentTopicOfDetailLineItem = self._skillsMatrixModelService.getParentTopicOfLineItem(self.detailLineItem['id']);
+
+                self.selectedParentTopic = self.parentTopicOfDetailLineItem;
+                self.selectedLineItem = self.detailLineItem;
+              }
+            })
       }
     })
+  }
+
+  _hasBtnBeenPressed: boolean = false;
+  hasBtnBeenPressed() {
+    return this._hasBtnBeenPressed;
+  }
+
+  onDetailLineItemBtn() {
+    this._hasBtnBeenPressed = true;
+    this.showDetailLineItemControls = true;
+  }
+
+  showDetailLineItemEditControls() {
+    return this.showDetailLineItemControls;
+  }
+
+  showExistingDetailLineItemInfo() {
+    return this.selectedParentTopic && this.selectedLineItem;
+  }
+
+  getDetailLineItemName() {
+    const self = this;
+    return self.selectedLineItem && self.selectedLineItem['name'];
+  }
+
+  getDetailLineItemParentTopicName() {
+    const self = this;
+    return self.selectedParentTopic && self.selectedParentTopic['name'];
   }
 
   getTopics() {
@@ -68,7 +115,7 @@ export class SmliseEditSkillPage implements OnInit {
 
     if (this.selectedLineItem && this.selectedLineItem['id'] === lineItem['id']) {
       this.selectedLineItem = null;
-      this.skill["detailLineItemId"] = -1;
+      this.skill["detailLineItemId"] = '';
     }
     else {
       this.selectedLineItem = lineItem;

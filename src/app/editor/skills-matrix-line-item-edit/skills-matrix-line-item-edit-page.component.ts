@@ -30,7 +30,7 @@ export class SkillsMatrixLineItemEditPage implements OnInit {
 		self._skillsMatrixModelService._initWithSameSkillsMatrixID();
 
 		self._route.params.subscribe((params) => {
-			let lineItemId = params['lineItemId'] * 1;
+			let lineItemId: string = params['lineItemId'];
 
 			if (lineItemId) {
 				self._skillsMatrixModelService.waitingPromise().then(() => {

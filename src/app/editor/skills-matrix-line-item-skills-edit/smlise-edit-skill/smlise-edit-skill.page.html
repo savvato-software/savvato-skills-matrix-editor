@@ -10,7 +10,25 @@
     <ion-input data-test="skills-matrix-line-item-skill-edit-name" [(ngModel)]="skill.description" (ionChange)="setDirty()"></ion-input>
   </ion-item>
 </ion-content>
+<ion-content *ngIf="showExistingDetailLineItemInfo()">
+  <ion-item>
+    Detail Line Item Name<br/>
+    {{getDetailLineItemName()}}
+  </ion-item>
+  <ion-item>
+    Parent Topic of Detail Line Item Name<br/>
+    {{getDetailLineItemParentTopicName()}}
+  </ion-item>
+</ion-content>
 <ion-content>
+  <ion-item *ngIf="showExistingDetailLineItemInfo()">
+    <ion-button (click)="onDetailLineItemBtn()">Change Detail Line Item</ion-button>
+  </ion-item>
+  <ion-item *ngIf="!showExistingDetailLineItemInfo() && !hasBtnBeenPressed()">
+    <ion-button (click)="onDetailLineItemBtn()">Set Detail Line Item</ion-button>
+  </ion-item>
+</ion-content>
+<ion-content *ngIf="showDetailLineItemEditControls()">
   <ion-item>
     <ion-label>Name:</ion-label>
     <ion-select aria-label="Select Topic" (ionChange)="onSelectTopic($event)">
@@ -29,5 +47,5 @@
     </ion-item>
   </ion-list>
 
-  <ion-button class="" (click)="onBackBtnClicked()">Go Back</ion-button>
 </ion-content>
+<ion-button class="" (click)="onBackBtnClicked()">Go Back</ion-button>
