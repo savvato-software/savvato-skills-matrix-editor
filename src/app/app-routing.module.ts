@@ -44,7 +44,7 @@ const routes: Routes = [
     loadChildren: () => import('./question-manager/question-manager.module').then( m => m.QuestionManagerPageModule)
   },
   {
-    path: 'export/:skillsMatrixId',
+    path: 'export',
     loadChildren: () => import('./export/export.module').then( m => m.ExportPageModule)
   }
 ];

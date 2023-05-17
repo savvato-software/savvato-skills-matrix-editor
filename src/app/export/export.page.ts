@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {SkillsMatrixModelService} from "@savvato-software/savvato-skills-matrix-services";
+import {SkillsMatrixAPIService, SkillsMatrixModelService} from "@savvato-software/savvato-skills-matrix-services";
 
 import {environment} from "../../_environments/environment";
 import {ActivatedRoute} from "@angular/router";
@@ -11,9 +11,10 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class ExportPage implements OnInit {
 
-  skillsMatrixId: string = '';
+  listOfSkillsMatrix: {skillsMatrixId: '', name: ''}[] = [];
 
   constructor(private _skillsMatrixModelService: SkillsMatrixModelService,
+              private _skillsMatrixAPIService: SkillsMatrixAPIService,
               private _route: ActivatedRoute
               ) { }
 
@@ -21,20 +22,24 @@ export class ExportPage implements OnInit {
 
     const self = this;
     self._route.params.subscribe((params) => {
-      self.skillsMatrixId = params['skillsMatrixId'];
 
-      self._skillsMatrixModelService.setEnvironment(environment);
-      self._skillsMatrixModelService._init(self.skillsMatrixId, true);
+      self._skillsMatrixAPIService.setEnvironment(environment);
+
+      self._skillsMatrixAPIService.getAllSkillsMatrices().then((data: any) => {
+        self.listOfSkillsMatrix = data;
+      })
     })
-
   }
 
-  getName() {
-    return this._skillsMatrixModelService.isSkillsMatrixAvailable() && this._skillsMatrixModelService.getName();
+  getListOfSkillsMatrix() {
+    return this.listOfSkillsMatrix
   }
 
-  onExportBtnClick() {
+  onExportBtnClick(skillsMatrixId: string) {
     const self = this;
+
+    self._skillsMatrixModelService.setEnvironment(environment);
+    self._skillsMatrixModelService._init(skillsMatrixId, true);
 
     self._skillsMatrixModelService.waitingPromise().then(() => {
         let model = self._skillsMatrixModelService.getModel();
