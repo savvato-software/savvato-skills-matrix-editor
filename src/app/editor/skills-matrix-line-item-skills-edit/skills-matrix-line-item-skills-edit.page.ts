@@ -112,7 +112,14 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
               else if (data.level > 4)
                 data.level = 4;
 
-              await this._skillsMatrixModelService.addSkill(this.lineItemId, data.level, data.string);
+              let strings = data.string.split('    ').map(s => s.trim()).filter(s => s.length > 0);
+              let idx = 0;
+
+              while (idx < strings.length) {
+                await this._skillsMatrixModelService.addSkill(this.lineItemId, data.level, strings[idx++]);
+              }
+
+              this.refreshComponentHandler(this.lineItemId);
 
               self.mruLevel = data.level;
               await this.onAddSkillClicked();
