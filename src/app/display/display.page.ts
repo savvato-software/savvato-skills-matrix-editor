@@ -141,4 +141,8 @@ export class DisplayPage implements OnInit {
   	onListPageBtnClicked() {
   		this._router.navigate(['/list/'])
   	}
+
+	onExportBtnClicked() {
+		this._router.navigate(['/export']);
+	}
 }

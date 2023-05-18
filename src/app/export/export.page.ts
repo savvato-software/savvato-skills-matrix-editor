@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {SkillsMatrixAPIService, SkillsMatrixModelService} from "@savvato-software/savvato-skills-matrix-services";
 
 import {environment} from "../../_environments/environment";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-export',
@@ -15,7 +15,8 @@ export class ExportPage implements OnInit {
 
   constructor(private _skillsMatrixModelService: SkillsMatrixModelService,
               private _skillsMatrixAPIService: SkillsMatrixAPIService,
-              private _route: ActivatedRoute
+              private _route: ActivatedRoute,
+              private _router: Router
               ) { }
 
   ngOnInit() {
@@ -58,4 +59,7 @@ export class ExportPage implements OnInit {
       });
   }
 
+  onListPageBtnClicked() {
+    this._router.navigate(['/list/'])
+  }
 }

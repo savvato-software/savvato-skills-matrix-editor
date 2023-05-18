@@ -80,4 +80,9 @@ export class ListPage implements OnInit {
           ]
       });
   }
+
+  onExportBtnClicked() {
+    this._router.navigate(['/export']);
+  }
+
 }
