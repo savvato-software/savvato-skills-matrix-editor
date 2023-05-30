@@ -50,6 +50,9 @@ export class EditorPage implements OnInit {
 		self._functionPromiseService.initFunc(self.funcKey, () => {
 			return new Promise((resolve, reject) => {
 				resolve({
+					isEditor: () => {
+						return true;
+					},
 					getEnv: () => {
 						return environment;
 					},
