@@ -33,6 +33,7 @@ export class EditorPage implements OnInit {
 	selectedTopicIDsProvider = () => { return [] };
 	selectedLineItemIDsProvider = () => { return [] };
 	selectedLevelIDProvider = () => { return -1; }
+	resetCalculatedStuffCallback = () => {};
 
 	skillsMatrixId: string = '';
 
@@ -140,6 +141,9 @@ export class EditorPage implements OnInit {
 							else
 								return "lightgray";
 						}
+					},
+					setResetCalculatedStuffCallback: (func) => {
+						self.resetCalculatedStuffCallback = func;
 					},
 					skillsMatrixComponentFinishedLoadingEventHandler: (data) => {
 						self._loadingService.dismiss();
