@@ -43,7 +43,7 @@ export class ExportPage implements OnInit {
     self._skillsMatrixModelService._init(skillsMatrixId, true);
 
     self._skillsMatrixModelService.waitingPromise().then(() => {
-        let model = self._skillsMatrixModelService.getModel();
+        let model = self._skillsMatrixModelService.getSkillsMatrixById(skillsMatrixId);
 
           // Convert the 'sm' object to JSON
           const jsonData = JSON.stringify(model);

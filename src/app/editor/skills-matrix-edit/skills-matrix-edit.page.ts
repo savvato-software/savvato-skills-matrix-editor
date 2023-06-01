@@ -14,7 +14,9 @@ import {environment} from "../../../_environments/environment";
 export class SkillsMatrixEditPage implements OnInit {
 
   dirty = false;
-  matrix: SkillsMatrix = {id: '', name: ''};
+  matrix: SkillsMatrix = {id: '', name: '', topics: [] };
+
+  skillsMatrixId: string = '';
 
   constructor(private _location: Location,
               private _router: Router,
@@ -27,14 +29,16 @@ export class SkillsMatrixEditPage implements OnInit {
     let self = this;
 
     self._skillsMatrixModelService.setEnvironment(environment);
-    self._skillsMatrixModelService._initWithSameSkillsMatrixID();
 
     self._route.params.subscribe((params) => {
       let skillsMatrixId = params['skillsMatrixId'];
 
       if (skillsMatrixId) {
-        self._skillsMatrixModelService.waitingPromise().then(() => {
-          self.matrix = self._skillsMatrixModelService.getModel();
+        self._skillsMatrixModelService._init(skillsMatrixId, true);
+
+        self._skillsMatrixModelService.waitUntilAvailable().then(() => {
+          self.matrix = self._skillsMatrixModelService.getSkillsMatrixById(skillsMatrixId);
+          self.skillsMatrixId = skillsMatrixId;
         })
       }
     })
@@ -43,7 +47,7 @@ export class SkillsMatrixEditPage implements OnInit {
   onBackBtnClicked() {
     let self = this;
     if (self.isDirty()) {
-      self._skillsMatrixModelService.updateSkillsMatrixName(self.matrix['name']).then((data) => {
+      self._skillsMatrixModelService.updateSkillsMatrixName(self.skillsMatrixId, self.matrix['name']).then((data) => {
         self._location.back();
       })
     } else {

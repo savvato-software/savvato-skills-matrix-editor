@@ -14,7 +14,7 @@ import { environment } from '../../../_environments/environment'
 export class SkillsMatrixLineItemEditPage implements OnInit {
 
 	dirty = false;
-	lineItem = {id: -1, name: ''}
+	lineItem: any;
 
 	constructor(private _location: Location,
 			    private _router: Router,
@@ -27,7 +27,6 @@ export class SkillsMatrixLineItemEditPage implements OnInit {
 		let self = this;
 
 		self._skillsMatrixModelService.setEnvironment(environment);
-		self._skillsMatrixModelService._initWithSameSkillsMatrixID();
 
 		self._route.params.subscribe((params) => {
 			let lineItemId: string = params['lineItemId'];

@@ -53,14 +53,23 @@ export class EditorPage implements OnInit {
 					isEditor: () => {
 						return true;
 					},
-					getEnv: () => {
-						return environment;
-					},
-					getSkillsMatrixId: () => {
-						return self.skillsMatrixId;
-					},
-					getSkillsMatrixModelService: () => {
-						return self._skillsMatrixModelService;
+					// getEnv: () => {
+					// 	return environment;
+					// },
+					// getSkillsMatrixId: () => {
+					// 	return self.skillsMatrixId;
+					// },
+					// getSkillsMatrixModelService: () => {
+					// 	return self._skillsMatrixModelService;
+					// },
+					initModelService: () => {
+						return new Promise((resolve, reject) => {
+							self._skillsMatrixModelService._init(self.skillsMatrixId, true)
+
+							self._skillsMatrixModelService.waitUntilAvailable().then(() => {
+								resolve(true);
+							});
+						});
 					},
 					setProviderForSelectedTopicIDs: (func) => {
 						// called by the skillsmatrix component to give us a function
@@ -73,6 +82,21 @@ export class EditorPage implements OnInit {
 					setProviderForSelectedLevelID: (func) => {
 						// called by the skillsmatrix component to give us a function
 						self.selectedLevelIDProvider = func;
+					},
+					getName: (skillsMatrixId: string) => {
+						return self._skillsMatrixModelService.getName(skillsMatrixId);
+					},
+					getSkillsMatrixes: () => {
+						return self._skillsMatrixModelService.getSkillsMatrixes();
+					},
+					getTopics: (skillsMatrixId: string) => {
+						return self._skillsMatrixModelService.getTopics(skillsMatrixId);
+					},
+					getLineItemsByTopic: (topic: any) => {
+						return self._skillsMatrixModelService.getLineItemsForATopic(topic['id']);
+					},
+					getSkillsByLineItemAndLevel: (lineItem: any, level: number) => {
+						return self._skillsMatrixModelService.getSkillsForALineItemAndLevel(lineItem, level);
 					},
 					getColorMeaningString: () => {
 						return "Red means selected. Selected means you can edit it!"
@@ -184,7 +208,7 @@ export class EditorPage implements OnInit {
 				handler: (data) => {
 					if (data.topicName && data.topicName.length >= 2) {
 						self._skillsMatrixModelService.saveSequenceInfo().then(() => {
-							self._skillsMatrixModelService.addTopic(data.topicName).then(() => {
+							self._skillsMatrixModelService.addTopic(self.skillsMatrixId, data.topicName).then(() => {
 								// do nothing
 							});
 						});
@@ -294,7 +318,7 @@ export class EditorPage implements OnInit {
 		let rtn = false;
 		let selectedTopicIDs = this.selectedTopicIDsProvider();
 		if (selectedTopicIDs && selectedTopicIDs.length === 1) {
-			let lineItems = this._skillsMatrixModelService.getLineItemsForATopic(selectedTopicIDs[0]);
+			let lineItems: any = this._skillsMatrixModelService.getSkillsMatrixLineItemsByTopic(selectedTopicIDs[0]);
 
 			let selectedLineItemIDs = this.selectedLineItemIDsProvider();
 
@@ -313,7 +337,7 @@ export class EditorPage implements OnInit {
 		let rtn = false;
 		let selectedTopicIDs = this.selectedTopicIDsProvider();
 		if (selectedTopicIDs && selectedTopicIDs.length === 1) {
-			let lineItems = this._skillsMatrixModelService.getLineItemsForATopic(selectedTopicIDs[0]);
+			let lineItems: any = this._skillsMatrixModelService.getSkillsMatrixLineItemsByTopic(selectedTopicIDs[0]);
 
 			let selectedLineItemIDs = this.selectedLineItemIDsProvider();
 

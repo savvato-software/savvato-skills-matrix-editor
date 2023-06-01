@@ -37,7 +37,6 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
     let self = this;
 
     self._skillsMatrixModelService.setEnvironment(environment);
-    self._skillsMatrixModelService._initWithSameSkillsMatrixID();
 
     self._route.params.subscribe((params) => {
       self.lineItemId = params['lineItemId'];
@@ -141,20 +140,19 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
   }
 
   getParentLineItemId() {
-    const skillsMatrix = this._skillsMatrixModelService.getModel();
+    const skillsMatrixes = this._skillsMatrixModelService.getSkillsMatrixes();
     const skillId = this.getSelectedSkillId();
 
-    for (const topic of skillsMatrix.topics) {
-      for (const lineItem of topic.lineItems) {
-        const skill = lineItem.skills.find(s => s.id === skillId);
-        if (skill) {
-          return lineItem.id;
+    for (const skillsMatrix of skillsMatrixes) {
+      for (const topic of skillsMatrix.topics) {
+        for (const lineItem of topic.lineItems) {
+          const skill = lineItem.skills.find(s => s.id === skillId);
+          if (skill) {
+            return lineItem.id;
+          }
         }
       }
     }
-
-    // WILO.. need to set the dropdown to the topic of the detail line item
-    // and show the line item selected. may 11 13:57
 
     return null;
   }
@@ -166,8 +164,10 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
 
     // get list of topics and line items
     // set in service
-   self._smliseEditService.topics = self._skillsMatrixModelService.getTopics();
-   self._smliseEditService.selectedSkillsParentLineItemId = selectedSkillsParentLineItemId[0];
+    const sm = self._skillsMatrixModelService.getSkillsMatrixContainingLineItemId(self.lineItemId);
+
+   self._smliseEditService.topics = self._skillsMatrixModelService.getTopics(sm['id']);
+   self._smliseEditService.selectedSkillsParentLineItemId = selectedSkillsParentLineItemId;
    self._smliseEditService.getLineItemFunc = (topicId ) => {
      let topic = self._smliseEditService.topics.filter((t: any) => { return t['id'] === topicId; })[0];
 
@@ -246,7 +246,7 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
 
   async onMoveSkillClicked() {
       const self = this;
-      const skillsMatrixModelId = this._skillsMatrixModelService.getModel()['id'];
+      const sm = self._skillsMatrixModelService.getSkillsMatrixContainingSkillId(self.getSelectedSkillId());
       const selectedSkillLevelId = this.getSelectedSkillLevelId();
       const alert = await this._alertController.create({
         header: 'Select Level',
@@ -259,7 +259,7 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
         buttons: [
           { text: 'Cancel', role: 'cancel' },
           { text: 'OK', handler: (data) => {
-              self._skillsMatrixModelService.moveSkillToAnotherLevel(skillsMatrixModelId, self.lineItemId, self.getSelectedSkillId(), data)
+              self._skillsMatrixModelService.moveSkillToAnotherLevel(sm['id'], self.lineItemId, self.getSelectedSkillId(), data)
               .then(() => {
                 self.refreshComponentHandler(self.lineItemId);
             })
@@ -281,7 +281,7 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
 
   onFinishedEditingBtnClicked() {
     this._skillsMatrixModelService.saveSkillSequenceInfo().then(() => {
-      this._router.navigate(['/editor/' + this._skillsMatrixModelService.getModel()['id']]);
+      this._router.navigate(['/editor/' + this._skillsMatrixModelService.getSkillsMatrixes()[0]['id']]);
     });
   }
 }

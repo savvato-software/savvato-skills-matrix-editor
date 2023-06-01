@@ -7,6 +7,7 @@ import { LoadingService } from "../_services/loading.service";
 import { FunctionPromiseService } from '@savvato-software/savvato-javascript-services'
 
 import { environment } from '../../_environments/environment'
+import {SkillsMatrixModelService} from "@savvato-software/savvato-skills-matrix-services";
 
 @Component({
   selector: 'app-display',
@@ -21,7 +22,8 @@ export class DisplayPage implements OnInit {
 				private _router: Router,
 				private _route: ActivatedRoute,
 				private _loadingService: LoadingService,
-				private _functionPromiseService: FunctionPromiseService) {
+				private _functionPromiseService: FunctionPromiseService,
+				private _skillsMatrixModelService: SkillsMatrixModelService) {
 
 	}
 
@@ -38,17 +40,45 @@ export class DisplayPage implements OnInit {
 	  		self.skillsMatrixId = params['skillsMatrixId'];
 		})
 
+		self._skillsMatrixModelService.setEnvironment(environment);
+
 		self._functionPromiseService.reset(self.funcKey);
 
 		self._functionPromiseService.initFunc(self.funcKey, () => {
 			return new Promise((resolve, reject) => {
 				resolve({
-					getEnv: () => {
-						return environment;
+					// getEnv: () => {
+					// 	return environment;
+					// },
+					// getSkillsMatrixId: () => {
+					// 	console.log("*** skillsMatrixId = " + self.skillsMatrixId)
+					// 	return self.skillsMatrixId;
+					// },
+					initModelService: () => {
+						return new Promise((resolve, reject) => {
+							console.log("*** initializing skills matrix model service")
+							self._skillsMatrixModelService._init(self.skillsMatrixId, true)
+
+							self._skillsMatrixModelService.waitUntilAvailable().then(() => {
+								console.log("*** skills matrix model service is available")
+								resolve(true);
+							});
+						});
 					},
-					getSkillsMatrixId: () => {
-						console.log("*** skillsMatrixId = " + self.skillsMatrixId)
-						return self.skillsMatrixId;
+					getName: (skillsMatrixId: string) => {
+						return self._skillsMatrixModelService.getName(skillsMatrixId);
+					},
+					getSkillsMatrixes: () => {
+						return self._skillsMatrixModelService.getSkillsMatrixes();
+					},
+					getTopics: (skillsMatrixId: string) => {
+						return self._skillsMatrixModelService.getTopics(skillsMatrixId);
+					},
+					getLineItemsByTopic: (topic: any) => {
+						return self._skillsMatrixModelService.getLineItemsForATopic(topic['id']);
+					},
+					getSkillsByLineItemAndLevel: (lineItem: any, level: number) => {
+						return self._skillsMatrixModelService.getSkillsForALineItemAndLevel(lineItem, level);
 					},
 					getColorMeaningString: () => {
 						return "This is the read only view of the Skills Matrix."

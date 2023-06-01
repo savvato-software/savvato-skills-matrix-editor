@@ -41,7 +41,6 @@ export class SmliseEditSkillPage implements OnInit {
     let self = this;
 
     self._skillsMatrixModelService.setEnvironment(environment);
-    self._skillsMatrixModelService._initWithSameSkillsMatrixID();
 
     self._route.params.subscribe((params) => {
       let lineItemId: string = params['lineItemId'];

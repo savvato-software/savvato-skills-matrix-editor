@@ -14,7 +14,7 @@ import { environment } from '../../../_environments/environment';
 export class SkillsMatrixTopicEditPage implements OnInit {
 
 	dirty = false;
-	topic: Topic = {id: '', name: ''}
+	topic: Topic = {id: '', name: '', lineItems: []}
 
 	constructor(private _location: Location,
 			    private _router: Router,
@@ -27,14 +27,13 @@ export class SkillsMatrixTopicEditPage implements OnInit {
 		let self = this;
 
 		self._skillsMatrixModelService.setEnvironment(environment);
-		self._skillsMatrixModelService._initWithSameSkillsMatrixID();
 
 		self._route.params.subscribe((params) => {
 			let topicId: string = params['topicId'];
 
 			if (topicId) {
 				self._skillsMatrixModelService.waitingPromise().then(() => {
-					self.topic = self._skillsMatrixModelService.getTopicById(topicId)[0]
+					self.topic = self._skillsMatrixModelService.getTopicById(topicId);
 				})
 			}
 		})
