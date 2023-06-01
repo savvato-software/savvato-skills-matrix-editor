@@ -47,9 +47,18 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
     self._functionPromiseService.initFunc(self.funcKey, () => {
       return new Promise((resolve, reject) => {
         resolve({
-          getLineItemId: () => self.lineItemId,
-          getSkillsMatrixModelService: () => {
-            return self._skillsMatrixModelService;
+          initModelService: () => {
+            // self._skillsMatrixModelService._init(self.lineItemId, true);
+            return new Promise((resolve, reject) => {
+              resolve(true);
+            })
+          },
+          getLineItem: () => {
+            return self._skillsMatrixModelService.getSkillsMatrixLineItemById(self.lineItemId);
+          },
+          getSkills: (level) => {
+            const lineItem = self._skillsMatrixModelService.getSkillsMatrixLineItemById(self.lineItemId);
+            return self._skillsMatrixModelService.getSkillsForALineItemAndLevel(lineItem, level);
           },
           getSkillBackgroundColor: (skill, isSelected) => {
             if (isSelected) {
@@ -194,7 +203,8 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
     const selectedSkillLevelId = this.getSelectedSkillLevelId()
 
     if (this.isSkillSelected()) {
-      const skills = this._skillsMatrixModelService.getSkillsForALineItemAndLevel(this.lineItemId, selectedSkillLevelId);
+      const lineItem = this._skillsMatrixModelService.getSkillsMatrixLineItemById(this.lineItemId);
+      const skills = this._skillsMatrixModelService.getSkillsForALineItemAndLevel(lineItem, selectedSkillLevelId);
 
       if (skills.length > 0) {
         const selectedSkillId = this.getSelectedSkillId();
@@ -211,7 +221,8 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
     const selectedSkillLevelId = this.getSelectedSkillLevelId()
 
     if (this.isSkillSelected()) {
-      const skills = this._skillsMatrixModelService.getSkillsForALineItemAndLevel(this.lineItemId, selectedSkillLevelId);
+      const lineItem = this._skillsMatrixModelService.getSkillsMatrixLineItemById(this.lineItemId);
+      const skills = this._skillsMatrixModelService.getSkillsForALineItemAndLevel(lineItem, selectedSkillLevelId);
 
       if (skills.length > 0) {
         const selectedSkillId = this.getSelectedSkillId();
