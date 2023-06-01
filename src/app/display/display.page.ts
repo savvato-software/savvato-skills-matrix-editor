@@ -49,11 +49,9 @@ export class DisplayPage implements OnInit {
 				resolve({
 					initModelService: () => {
 						return new Promise((resolve, reject) => {
-							console.log("*** initializing skills matrix model service")
 							self._skillsMatrixModelService._init(self.skillsMatrixId, true)
 
 							self._skillsMatrixModelService.waitUntilAvailable().then(() => {
-								console.log("*** skills matrix model service is available")
 								resolve(true);
 							});
 						});
