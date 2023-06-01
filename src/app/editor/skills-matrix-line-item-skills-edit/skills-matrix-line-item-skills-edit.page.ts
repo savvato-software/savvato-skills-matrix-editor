@@ -15,8 +15,6 @@ import {SmliseEditService} from "./_services/smlise-edit.service";
 export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
 
   lineItemId: string = '';
-  selectedSkillId: string = '';
-  selectedSkillLevelId: string = '';
 
   funcKey = "smlise1";
 
@@ -127,7 +125,7 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
                 await this._skillsMatrixModelService.addSkill(this.lineItemId, data.level, strings[idx++]);
               }
 
-              this.refreshComponentHandler(this.lineItemId);
+              this._skillsMatrixModelService.refresh();
 
               self.mruLevel = data.level;
               await this.onAddSkillClicked();
@@ -142,9 +140,8 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
   }
 
   onDeleteSkillClicked() {
-    this._skillsMatrixModelService.deleteSkill(this.lineItemId, this.selectedSkillId).then(() => {
-      this.selectedSkillId = '';
-      this.selectedSkillLevelId = '';
+    this._skillsMatrixModelService.deleteSkill(this.lineItemId, this.getSelectedSkillId()).then(() => {
+      this._skillsMatrixModelService.refresh();
     })
   }
 
