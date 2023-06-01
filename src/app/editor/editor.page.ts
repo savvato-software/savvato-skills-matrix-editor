@@ -53,15 +53,6 @@ export class EditorPage implements OnInit {
 					isEditor: () => {
 						return true;
 					},
-					// getEnv: () => {
-					// 	return environment;
-					// },
-					// getSkillsMatrixId: () => {
-					// 	return self.skillsMatrixId;
-					// },
-					// getSkillsMatrixModelService: () => {
-					// 	return self._skillsMatrixModelService;
-					// },
 					initModelService: () => {
 						return new Promise((resolve, reject) => {
 							self._skillsMatrixModelService._init(self.skillsMatrixId, true)

@@ -47,13 +47,6 @@ export class DisplayPage implements OnInit {
 		self._functionPromiseService.initFunc(self.funcKey, () => {
 			return new Promise((resolve, reject) => {
 				resolve({
-					// getEnv: () => {
-					// 	return environment;
-					// },
-					// getSkillsMatrixId: () => {
-					// 	console.log("*** skillsMatrixId = " + self.skillsMatrixId)
-					// 	return self.skillsMatrixId;
-					// },
 					initModelService: () => {
 						return new Promise((resolve, reject) => {
 							console.log("*** initializing skills matrix model service")
