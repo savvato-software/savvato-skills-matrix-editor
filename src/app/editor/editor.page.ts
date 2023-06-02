@@ -242,7 +242,7 @@ export class EditorPage implements OnInit {
 					if (data.lineItemName && data.lineItemName.length >= 2) {
 						self._skillsMatrixModelService.saveSequenceInfo().then(() => {
 							self._skillsMatrixModelService.addLineItem(self.selectedTopicIDsProvider()[0], data.lineItemName).then(() => {
-								// do nothing
+								self._skillsMatrixModelService.refresh();
 							});
 						});
 						return true;
