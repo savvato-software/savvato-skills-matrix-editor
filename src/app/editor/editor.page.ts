@@ -9,7 +9,7 @@ import { SkillsMatrixModelService } from '@savvato-software/savvato-skills-matri
 
 import { UP, DOWN } from '../../_constants/constants';
 
-import { environment } from '../../_environments/environment'
+import { environment } from '../_environments/environment'
 
 @Component({
   selector: 'app-editor',

@@ -8,7 +8,7 @@ import { AlertService } from '../../_services/alert.service';
 
 import { QuestionEditService } from '../../_services/question-edit.service';
 
-import { environment } from '../../../_environments/environment'
+import { environment } from '../../_environments/environment'
 
 //
 // This page presents a field to edit the question itself, and also a view of the Skills Matrix, used to select lineItemLevel associations

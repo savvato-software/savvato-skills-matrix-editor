@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Location} from "@angular/common";
 import {ActivatedRoute, Router} from "@angular/router";
 import {SkillsMatrixModelService} from "@savvato-software/savvato-skills-matrix-services";
-import {environment} from "../../../../_environments/environment";
+import {environment} from "../../../_environments/environment";
 
 import { Skill } from '@savvato-software/savvato-skills-matrix-services'
 

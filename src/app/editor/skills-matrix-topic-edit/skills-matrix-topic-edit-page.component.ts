@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 
 import {SkillsMatrixModelService, Topic} from '@savvato-software/savvato-skills-matrix-services';
 
-import { environment } from '../../../_environments/environment';
+import { environment } from '../../_environments/environment';
 
 @Component({
   selector: 'app-skills-matrix-topic-edit',

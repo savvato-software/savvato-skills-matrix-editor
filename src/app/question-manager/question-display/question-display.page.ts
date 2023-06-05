@@ -6,7 +6,7 @@ import { FunctionPromiseService } from '@savvato-software/savvato-javascript-ser
 import { QuestionService } from '../../_services/question.service';
 import { QuestionEditService } from '../../_services/question-edit.service';
 
-import { environment } from '../../../_environments/environment'
+import { environment } from '../../_environments/environment'
 
 @Component({
   selector: 'app-question-display',

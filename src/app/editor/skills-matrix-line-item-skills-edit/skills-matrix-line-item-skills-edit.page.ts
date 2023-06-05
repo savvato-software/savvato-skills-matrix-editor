@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {SkillsMatrixModelService} from "@savvato-software/savvato-skills-matrix-services";
 
-import { environment } from '../../../_environments/environment'
+import { environment } from '../../_environments/environment'
 import {FunctionPromiseService, SequenceService} from "@savvato-software/savvato-javascript-services";
 import {AlertController} from "@ionic/angular";
 import {SmliseEditService} from "./_services/smlise-edit.service";

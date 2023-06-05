@@ -7,7 +7,7 @@ import { ModelService } from './_services/model.service';
 import { QuestionEditService } from '../_services/question-edit.service';
 import { FunctionPromiseService } from '@savvato-software/savvato-javascript-services'
 
-import { environment } from '../../_environments/environment';
+import { environment } from '../_environments/environment';
 
 @Component({
   selector: 'app-question-manager',

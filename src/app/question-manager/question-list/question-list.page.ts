@@ -7,7 +7,7 @@ import { SkillsMatrixModelService } from '@savvato-software/savvato-skills-matri
 
 import { QuestionEditService } from '../../_services/question-edit.service';
 
-import { environment } from '../../../_environments/environment';
+import { environment } from '../../_environments/environment';
 
 @Component({
   selector: 'app-question-list',

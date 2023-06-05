@@ -6,7 +6,7 @@ import { LoadingService } from "../_services/loading.service";
 
 import { FunctionPromiseService } from '@savvato-software/savvato-javascript-services'
 
-import { environment } from '../../_environments/environment'
+import { environment } from '../_environments/environment'
 import {SkillsMatrixModelService} from "@savvato-software/savvato-skills-matrix-services";
 
 @Component({

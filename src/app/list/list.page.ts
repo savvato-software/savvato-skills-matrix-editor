@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 
 import { FunctionPromiseService } from '@savvato-software/savvato-javascript-services'
 
-import { environment } from '../../_environments/environment'
+import { environment } from '../_environments/environment'
 import {SkillsMatrixAPIService, SkillsMatrixModelService} from "@savvato-software/savvato-skills-matrix-services";
 import {AlertService} from "../_services/alert.service";
 
