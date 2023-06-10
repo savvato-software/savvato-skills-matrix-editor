@@ -1,7 +1,7 @@
 
 export const domainInfo = {
-  domain: 'localhost', // skills matrix api
-  port: '8080'
+  domain: 'SAVVATO-SKILLS-MATRIX-API-IP',
+  port: 'SAVVATO-SKILLS-MATRIX-API-PORT'
 };
 
 export const domainPort = domainInfo.domain + ':' + domainInfo.port;

@@ -1,6 +1,6 @@
 
 export const domainInfo = {
-  domain: '54.89.76.161', // skills matrix api
+  domain: 'localhost', // skills matrix api
   port: '8080'
 };
 
