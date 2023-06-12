@@ -197,38 +197,16 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
   }
 
   isSelectedSkillAbleToMoveUp() {
-    const selectedSkillLevelId = this.getSelectedSkillLevelId()
-
     if (this.isSkillSelected()) {
-      const lineItem = this._skillsMatrixModelService.getSkillsMatrixLineItemById(this.lineItemId);
-      const skills = this._skillsMatrixModelService.getSkillsForALineItemAndLevel(lineItem, selectedSkillLevelId);
-
-      if (skills.length > 0) {
-        const selectedSkillId = this.getSelectedSkillId();
-        let skill = skills.find((s: any) => s['id'] === selectedSkillId);
-        if (skill)
-          return this._sequenceService.isAbleToMove(skills, skill, this._sequenceService.BACKWARD);
-      }
+      return this._skillsMatrixModelService.isSkillAbleToMoveUp(this.lineItemId, this.getSelectedSkillLevelId(), this.getSelectedSkillId());
     }
-
     return undefined;
   }
 
   isSelectedSkillAbleToMoveDown() {
-    const selectedSkillLevelId = this.getSelectedSkillLevelId()
-
     if (this.isSkillSelected()) {
-      const lineItem = this._skillsMatrixModelService.getSkillsMatrixLineItemById(this.lineItemId);
-      const skills = this._skillsMatrixModelService.getSkillsForALineItemAndLevel(lineItem, selectedSkillLevelId);
-
-      if (skills.length > 0) {
-        const selectedSkillId = this.getSelectedSkillId();
-        let skill = skills.find((s: any) => s['id'] === selectedSkillId);
-        if (skill)
-          return this._sequenceService.isAbleToMove(skills, skill, this._sequenceService.FORWARD)
-      }
+      return this._skillsMatrixModelService.isSkillAbleToMoveDown(this.lineItemId, this.getSelectedSkillLevelId(), this.getSelectedSkillId());
     }
-
     return undefined;
   }
 
@@ -237,19 +215,11 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
   }
 
   onMoveSkillUpClicked() {
-    const skills = this._skillsMatrixModelService.getSkillsForALineItemAndLevel(this.lineItemId, this.getSelectedSkillLevelId());
-
-    const skill = skills.find((s: any) => s['id'] === this.getSelectedSkillId());
-
-    this._sequenceService.moveSequenceByOne(skills, skill, this._sequenceService.BACKWARD);
+    this._skillsMatrixModelService.moveSequenceForSkillsMatrixSkill(this.lineItemId, this.getSelectedSkillLevelId(), this.getSelectedSkillId(), this._sequenceService.BACKWARD);
   }
 
   onMoveSkillDownClicked() {
-    const skills = this._skillsMatrixModelService.getSkillsForALineItemAndLevel(this.lineItemId, this.getSelectedSkillLevelId());
-
-    const skill = skills.find((s: any) => s['id'] === this.getSelectedSkillId());
-
-    this._sequenceService.moveSequenceByOne(skills, skill, this._sequenceService.FORWARD);
+    this._skillsMatrixModelService.moveSequenceForSkillsMatrixSkill(this.lineItemId, this.getSelectedSkillLevelId(), this.getSelectedSkillId(), this._sequenceService.FORWARD);
   }
 
   async onMoveSkillClicked() {
