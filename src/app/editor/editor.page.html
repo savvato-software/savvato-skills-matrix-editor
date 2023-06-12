@@ -14,7 +14,7 @@
 	<ion-button class="" [disabled]="!isSelectedLineItemAbleToMoveUp()" (click)="onMoveLineItemUpClicked()">Move Line Item Up</ion-button>
 	<ion-button class="" [disabled]="!isSelectedLineItemAbleToMoveDown()" (click)="onMoveLineItemDownClicked()">Move Line Item Down</ion-button>
 	<span class="setOfButtonsDivider">|</span>
-	<ion-button class="" [disabled]="!isCopyLineItemBtnAvailable()" (click)="onCopyLineItemBtnClicked()">Copy Line Item</ion-button>
+	<ion-button class="" [disabled]="!isMoveLineItemBtnAvailable()" (click)="onMoveLineItemBtnClicked()">Move Line Item</ion-button>
 	<ion-button class="" [disabled]="!isDeleteLineItemBtnAvailable()" (click)="onDeleteLineItemBtnClicked()">Delete Line Item</ion-button>
 	<span class="setOfButtonsDivider">|</span>
 	<ion-button class="" [disabled]="!isEditSkillsBtnAvailable()" (click)="onEditSkillsBtnClicked()">Edit Skills</ion-button>

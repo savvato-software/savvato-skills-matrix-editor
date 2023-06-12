@@ -309,7 +309,7 @@ export class EditorPage implements OnInit {
 		});
 	}
 
-	isCopyLineItemBtnAvailable() {
+	isMoveLineItemBtnAvailable() {
 		let rtn = false;
 		let selectedTopicIDs = this.selectedTopicIDsProvider();
 		if (selectedTopicIDs && selectedTopicIDs.length === 1) {
@@ -324,8 +324,10 @@ export class EditorPage implements OnInit {
 		return rtn;
 	}
 
-	onCopyLineItemBtnClicked() {
-		this._skillsMatrixModelService.addExistingLineItem(this.selectedTopicIDsProvider()[0], this.selectedLineItemIDsProvider()[0]);
+	onMoveLineItemBtnClicked() {
+		this._skillsMatrixModelService.addExistingLineItem(this.selectedTopicIDsProvider()[0], this.selectedLineItemIDsProvider()[0]).then(() => {
+			this._skillsMatrixModelService.refresh();
+		});
 	}
 
 	isDeleteLineItemBtnAvailable() {
@@ -344,7 +346,9 @@ export class EditorPage implements OnInit {
 	}
 
 	onDeleteLineItemBtnClicked() {
-		this._skillsMatrixModelService.deleteExistingLineItem(this.selectedTopicIDsProvider()[0], this.selectedLineItemIDsProvider()[0]);
+		this._skillsMatrixModelService.deleteExistingLineItem(this.selectedTopicIDsProvider()[0], this.selectedLineItemIDsProvider()[0]).then(() => {
+			this._skillsMatrixModelService.refresh();
+		});
 	}
 
 	isEditSkillsBtnAvailable() {
