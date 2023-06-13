@@ -14,6 +14,7 @@ import {SmliseEditService} from "./_services/smlise-edit.service";
 })
 export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
 
+  skillsMatrixId: string = '';
   lineItemId: string = '';
 
   funcKey = "smlise1";
@@ -37,6 +38,7 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
     self._skillsMatrixModelService.setEnvironment(environment);
 
     self._route.params.subscribe((params) => {
+      self.skillsMatrixId = params['skillsMatrixId'];
       self.lineItemId = params['lineItemId'];
     })
 
@@ -46,9 +48,12 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
       return new Promise((resolve, reject) => {
         resolve({
           initModelService: () => {
-            // self._skillsMatrixModelService._init(self.lineItemId, true);
             return new Promise((resolve, reject) => {
-              resolve(true);
+              self._skillsMatrixModelService._init(self.skillsMatrixId, true);
+
+              self._skillsMatrixModelService.waitUntilAvailable().then((data) => {
+                resolve(true);
+              });
             })
           },
           getLineItem: () => {
@@ -237,10 +242,9 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
         buttons: [
           { text: 'Cancel', role: 'cancel' },
           { text: 'OK', handler: (data) => {
-              self._skillsMatrixModelService.moveSkillToAnotherLevel(sm['id'], self.lineItemId, self.getSelectedSkillId(), data)
-              .then(() => {
-                self.refreshComponentHandler(self.lineItemId);
-            })
+              self._skillsMatrixModelService.moveSkillToAnotherLevel(sm['id'], self.lineItemId, self.getSelectedSkillId(), data).then(() => {
+                self._skillsMatrixModelService.refresh();
+              });
           }}]
       })
 

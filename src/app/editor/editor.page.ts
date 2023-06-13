@@ -356,7 +356,7 @@ export class EditorPage implements OnInit {
 	}
 
 	onEditSkillsBtnClicked() {
-		this._router.navigate(['/editor/skills-matrix-line-item-skills-edit/' + this.selectedLineItemIDsProvider()[0]]);
+		this._router.navigate(['/editor/skills-matrix-line-item-skills-edit/' + this.skillsMatrixId + '/' + this.selectedLineItemIDsProvider()[0]]);
 	}
 
 	onEditMatrixBtnClicked() {
