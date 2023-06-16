@@ -41,13 +41,17 @@ export class SkillsMatrixLineItemEditPage implements OnInit {
 
 	onBackBtnClicked() { 
 		let self = this;
-		if (self.isDirty()) {
+		if (self.isDirty() && self.lineItem) {
 			self._skillsMatrixModelService.updateSkillsMatrixLineItem(self.lineItem).then((data) => {
 				self._location.back();
 			})
 		} else {
 			self._location.back();
 		}
+	}
+
+	getLineItem() {
+		return this.lineItem || {};
 	}
 
 	isDirty() {

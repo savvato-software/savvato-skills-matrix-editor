@@ -7,7 +7,7 @@
 <ion-content>
 	<ion-item>
 	  <ion-label position="floating">Name</ion-label>
-	  <ion-input data-test="skills-matrix-line-item-edit-name" [(ngModel)]="lineItem.name" (ionChange)="setDirty()"></ion-input>
+	  <ion-input data-test="skills-matrix-line-item-edit-name" [(ngModel)]="getLineItem().name" (ionChange)="setDirty()"></ion-input>
 	</ion-item>
 
 	<ion-button class="" (click)="onBackBtnClicked()">Go Back</ion-button>	
