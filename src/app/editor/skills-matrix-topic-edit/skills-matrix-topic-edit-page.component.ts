@@ -14,7 +14,7 @@ import { environment } from '../../_environments/environment';
 export class SkillsMatrixTopicEditPage implements OnInit {
 
 	dirty = false;
-	topic: Topic = {id: '', name: '', lineItems: []}
+	topic: Topic = {id: '', name: '', lineItems: [], sequence: 0}
 
 	constructor(private _location: Location,
 			    private _router: Router,

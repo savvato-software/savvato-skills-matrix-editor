@@ -7,11 +7,11 @@ export class SmliseEditService {
 
   public topics: any;
   public getLineItemFunc: (topicId) => Array<object>
-  public selectedSkillsParentLineItemId: number;
+  public selectedSkillsParentLineItemId: string | undefined
 
   constructor() {
     this.topics = [];
     this.getLineItemFunc = (topicId) => [];
-    this.selectedSkillsParentLineItemId = -1;
+    this.selectedSkillsParentLineItemId = undefined;
   }
 }

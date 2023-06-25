@@ -16,7 +16,7 @@ import { SmliseEditService } from "../_services/smlise-edit.service";
 export class SmliseEditSkillPage implements OnInit {
 
   dirty = false;
-  skill: Skill = {id: '', description: '', detailLineItemId: ''}
+  skill: Skill = {id: '', description: '', sequence: 0, detailLineItemId: ''};
 
   selectedTopicId: string = '';
 

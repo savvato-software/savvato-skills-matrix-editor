@@ -150,7 +150,7 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
     })
   }
 
-  getParentLineItemId() {
+  getParentLineItemId(): string|undefined {
     const skillsMatrixes = this._skillsMatrixModelService.getSkillsMatrixes();
     const skillId = this.getSelectedSkillId();
 
@@ -165,7 +165,7 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
       }
     }
 
-    return null;
+    return undefined;
   }
 
   async onEditSkillClicked() {
@@ -177,28 +177,36 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
     // set in service
     const sm = self._skillsMatrixModelService.getSkillsMatrixContainingLineItemId(self.lineItemId);
 
-   self._smliseEditService.topics = self._skillsMatrixModelService.getTopics(sm['id']);
-   self._smliseEditService.selectedSkillsParentLineItemId = selectedSkillsParentLineItemId;
-   self._smliseEditService.getLineItemFunc = (topicId ) => {
-     let topic = self._smliseEditService.topics.filter((t: any) => { return t['id'] === topicId; })[0];
+    if (sm) {
+      self._smliseEditService.topics = self._skillsMatrixModelService.getTopics(sm['id']);
+      self._smliseEditService.selectedSkillsParentLineItemId = selectedSkillsParentLineItemId;
+      self._smliseEditService.getLineItemFunc = (topicId) => {
+        let topic = self._smliseEditService.topics.filter((t: any) => {
+          return t['id'] === topicId;
+        })[0];
 
-     // get a list of all line items that are not the line item of my skill
-     let lineItems = [];
+        // get a list of all line items that are not the line item of my skill
+        let lineItems = [];
 
-     if (topic && topic["lineItems"])
-       lineItems = topic["lineItems"].filter((li: any) => { return li['id'] != selectedSkillsParentLineItemId; });
+        if (topic && topic["lineItems"])
+          lineItems = topic["lineItems"].filter((li: any) => {
+            return li['id'] != selectedSkillsParentLineItemId;
+          });
 
-     // filter that for any line items which have skills which dlis which refer to our line item, selectedSkillsParentLineItemId
-     lineItems = lineItems.filter((li: any) => {
-       return li["skills"].find(sk => sk["detailLineItemId"] == selectedSkillsParentLineItemId) === undefined;
-     })
+        // filter that for any line items which have skills which dlis which refer to our line item, selectedSkillsParentLineItemId
+        lineItems = lineItems.filter((li: any) => {
+          return li["skills"].find(sk => sk["detailLineItemId"] == selectedSkillsParentLineItemId) === undefined;
+        })
 
-     // should return the line items available in this topic, minus the line item which this skill is connected to, and any line items with skills that refer to this line item (the parent of the selected skill)
-     console.log("lineItems ", lineItems)
-     return lineItems;
-   }
+        // should return the line items available in this topic, minus the line item which this skill is connected to, and any line items with skills that refer to this line item (the parent of the selected skill)
+        console.log("lineItems ", lineItems)
+        return lineItems;
+      }
 
-    await this._router.navigate(['/editor/skills-matrix-line-item-skills-edit/smlise-edit-skill/' + this.lineItemId + '/' + this.getSelectedSkillId()]);
+      await this._router.navigate(['/editor/skills-matrix-line-item-skills-edit/smlise-edit-skill/' + this.lineItemId + '/' + this.getSelectedSkillId()]);
+    } else {
+      throw new Error("Could not find skills matrix containing line item id " + this.lineItemId);
+    }
   }
 
   isSelectedSkillAbleToMoveUp() {
@@ -242,9 +250,13 @@ export class SkillsMatrixLineItemSkillsEditPage implements OnInit {
         buttons: [
           { text: 'Cancel', role: 'cancel' },
           { text: 'OK', handler: (data) => {
+            if (sm) {
               self._skillsMatrixModelService.moveSkillToAnotherLevel(sm['id'], self.lineItemId, self.getSelectedSkillId(), data).then(() => {
                 self._skillsMatrixModelService.refresh();
               });
+            } else {
+              throw new Error('Skills Matrix not found for selected skill.');
+            }
           }}]
       })
 

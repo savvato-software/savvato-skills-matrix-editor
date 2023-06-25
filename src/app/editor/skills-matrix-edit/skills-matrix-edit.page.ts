@@ -14,7 +14,7 @@ import {environment} from "../../_environments/environment";
 export class SkillsMatrixEditPage implements OnInit {
 
   dirty = false;
-  matrix: SkillsMatrix = {id: '', name: '', topics: [] };
+  matrix: SkillsMatrix = {id: '', name: '', topics: [], sequence: 0};
 
   skillsMatrixId: string = '';
 
@@ -37,7 +37,11 @@ export class SkillsMatrixEditPage implements OnInit {
         self._skillsMatrixModelService._init(skillsMatrixId, true);
 
         self._skillsMatrixModelService.waitUntilAvailable().then(() => {
-          self.matrix = self._skillsMatrixModelService.getSkillsMatrixById(skillsMatrixId);
+          const sm = self._skillsMatrixModelService.getSkillsMatrixById(skillsMatrixId);
+          if (!sm) {
+            throw new Error('Skills Matrix not found');
+          }
+            self.matrix = sm;
           self.skillsMatrixId = skillsMatrixId;
         })
       }
